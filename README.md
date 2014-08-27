@@ -11,11 +11,13 @@ To-do list
 &#x2611; Player
 
 - &#x2611; Player movement
-	
-- &#x2611; Shooting
-	
+
 - &#x2611; Movement restriction
-	
+
+- &#9744; Moves limit instead of speed
+
+- &#x2611; Shooting
+
 - &#x2611; Ball collision
 	
 &#x2611; Levels
