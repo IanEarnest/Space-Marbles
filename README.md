@@ -1,9 +1,19 @@
 Space Marbles
 ====
 
-Made with Unity.
+Introduction
+------------
+
+Originally created as a game jam using Unity, this is a puzzle game with the idea of using planets as marbles.
 
 Version 0.1.2
+
+
+Purpose
+-------
+
+Created for a game jam, now being reworked.
+
 
 To-do list
 ==========
