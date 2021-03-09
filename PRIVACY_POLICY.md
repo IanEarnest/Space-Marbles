@@ -1,6 +1,7 @@
 ### Links
 [Link to home page](http://ianearnest.github.io/Space-Marbles/)
-[Link to original Privacy Policy](https://www.docracy.com/6016/mobile-privacy-policy)
+
+[Link to original Privacy Policy(docracy)](https://www.docracy.com/6016/mobile-privacy-policy)
 
 # PRIVACY POLICY MODEL FOR MOBILE APPLICATIONS
 This privacy policy governs your use of the software application Space Marbles Android (“Application”) for mobile devices that was created by IanEarnest. The Application is a puzzle game with the idea of using planets as marbles.
