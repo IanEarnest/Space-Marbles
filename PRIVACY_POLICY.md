@@ -1,3 +1,5 @@
+[Link to home page](http://ianearnest.github.io/Space-Marbles/)
+
 PRIVACY POLICY MODEL FOR MOBILE APPLICATIONS
 This is a model privacy policy, designed to be as generic as possible. We are not attorneys. We encourage those using this this model to consult a lawyer and have it reviewed by an expert as the language should change according to what your app does.
 
