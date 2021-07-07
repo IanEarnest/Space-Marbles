@@ -6,8 +6,8 @@ Introduction
 
 Originally created as a game jam using Unity, this is a puzzle game with the idea of using planets as marbles.
 
-Version 0.1.2
-
+Version 1.2
+Working with Unity 4.7.2
 
 Purpose
 -------
