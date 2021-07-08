@@ -81,7 +81,7 @@ public class Menu : MonoBehaviour {
 		//shooting.movespeed = shootingMoveSpeed;
 
 		// Remove + and - buttons if you are on max or min values.
-		if(maxSpheres.renderer.enabled == true){ // When options is displayed
+		if(maxSpheres.GetComponent<Renderer>().enabled == true){ // When options is displayed
 			if (mSpheres == mSpheresMax) {
 				maxSpheresPlus.gameObject.SetActive(false);
 			} else maxSpheresPlus.gameObject.SetActive(true);
@@ -122,145 +122,145 @@ public class Menu : MonoBehaviour {
 				instructions.fontStyle = FontStyle.Bold;
 				if(Input.GetMouseButtonDown(0)){
 					instructionsDetails.gameObject.SetActive(!instructionsDetails.gameObject.activeSelf);
-					instructionsClose.renderer.enabled = !instructionsClose.renderer.enabled;
-					instructionsClose.collider.enabled = true;
+					instructionsClose.GetComponent<Renderer>().enabled = !instructionsClose.GetComponent<Renderer>().enabled;
+					instructionsClose.GetComponent<Collider>().enabled = true;
 
-					maxSpheres.renderer.enabled = false;
-					maxSpheresValue.renderer.enabled = false;
-					maxSpheresPlus.renderer.enabled = false;
-					maxSpheresMinus.renderer.enabled = false;
-					moveSpeed.renderer.enabled = false;
-					moveSpeedValue.renderer.enabled = false;
-					moveSpeedPlus.renderer.enabled = false;
-					moveSpeedMinus.renderer.enabled = false;
-					maxSpheres.collider.enabled = false;
-					maxSpheresPlus.collider.enabled = false;
-					maxSpheresMinus.collider.enabled = false;
-					moveSpeed.collider.enabled = false;
-					moveSpeedPlus.collider.enabled = false;
-					moveSpeedMinus.collider.enabled = false;
-					optionsClose.renderer.enabled = false;
-					optionsClose.collider.enabled = false;
+					maxSpheres.GetComponent<Renderer>().enabled = false;
+					maxSpheresValue.GetComponent<Renderer>().enabled = false;
+					maxSpheresPlus.GetComponent<Renderer>().enabled = false;
+					maxSpheresMinus.GetComponent<Renderer>().enabled = false;
+					moveSpeed.GetComponent<Renderer>().enabled = false;
+					moveSpeedValue.GetComponent<Renderer>().enabled = false;
+					moveSpeedPlus.GetComponent<Renderer>().enabled = false;
+					moveSpeedMinus.GetComponent<Renderer>().enabled = false;
+					maxSpheres.GetComponent<Collider>().enabled = false;
+					maxSpheresPlus.GetComponent<Collider>().enabled = false;
+					maxSpheresMinus.GetComponent<Collider>().enabled = false;
+					moveSpeed.GetComponent<Collider>().enabled = false;
+					moveSpeedPlus.GetComponent<Collider>().enabled = false;
+					moveSpeedMinus.GetComponent<Collider>().enabled = false;
+					optionsClose.GetComponent<Renderer>().enabled = false;
+					optionsClose.GetComponent<Collider>().enabled = false;
 
-					level1.renderer.enabled = false;
-					level2.renderer.enabled = false;
-					level3.renderer.enabled = false;
-					level4.renderer.enabled = false;
-					level5.renderer.enabled = false;
-					level6.renderer.enabled = false;
-					level7.renderer.enabled = false;
-					level8.renderer.enabled = false;
-					level1.collider.enabled = false;
-					level2.collider.enabled = false;
-					level3.collider.enabled = false;
-					level4.collider.enabled = false;
-					level5.collider.enabled = false;
-					level6.collider.enabled = false;
-					level7.collider.enabled = false;
-					level8.collider.enabled = false;
-					levelClose.renderer.enabled = false;
-					levelClose.collider.enabled = false;
+					level1.GetComponent<Renderer>().enabled = false;
+					level2.GetComponent<Renderer>().enabled = false;
+					level3.GetComponent<Renderer>().enabled = false;
+					level4.GetComponent<Renderer>().enabled = false;
+					level5.GetComponent<Renderer>().enabled = false;
+					level6.GetComponent<Renderer>().enabled = false;
+					level7.GetComponent<Renderer>().enabled = false;
+					level8.GetComponent<Renderer>().enabled = false;
+					level1.GetComponent<Collider>().enabled = false;
+					level2.GetComponent<Collider>().enabled = false;
+					level3.GetComponent<Collider>().enabled = false;
+					level4.GetComponent<Collider>().enabled = false;
+					level5.GetComponent<Collider>().enabled = false;
+					level6.GetComponent<Collider>().enabled = false;
+					level7.GetComponent<Collider>().enabled = false;
+					level8.GetComponent<Collider>().enabled = false;
+					levelClose.GetComponent<Renderer>().enabled = false;
+					levelClose.GetComponent<Collider>().enabled = false;
 
 					aboutDetails.gameObject.SetActive(false);
-					aboutClose.renderer.enabled = false;
-					aboutClose.collider.enabled = false;
+					aboutClose.GetComponent<Renderer>().enabled = false;
+					aboutClose.GetComponent<Collider>().enabled = false;
 				}
 			}
 
 			if(hit.transform.name == "Level Select"){
 				levelSelect.fontStyle = FontStyle.Bold;
 				if(Input.GetMouseButtonDown(0)){
-					level1.renderer.enabled = !level1.renderer.enabled;
-					level2.renderer.enabled = !level2.renderer.enabled;
-					level3.renderer.enabled = !level3.renderer.enabled;
-					level4.renderer.enabled = !level4.renderer.enabled;
-					level5.renderer.enabled = !level5.renderer.enabled;
-					level6.renderer.enabled = !level6.renderer.enabled;
-					level7.renderer.enabled = !level7.renderer.enabled;
-					level8.renderer.enabled = !level8.renderer.enabled;
-					level1.collider.enabled = !level1.collider.enabled;
-					level2.collider.enabled = !level2.collider.enabled;
-					level3.collider.enabled = !level3.collider.enabled;
-					level4.collider.enabled = !level4.collider.enabled;
-					level5.collider.enabled = !level5.collider.enabled;
-					level6.collider.enabled = !level6.collider.enabled;
-					level7.collider.enabled = !level7.collider.enabled;
-					level8.collider.enabled = !level8.collider.enabled;
-					levelClose.renderer.enabled = !levelClose.renderer.enabled;
-					levelClose.collider.enabled = true;
+					level1.GetComponent<Renderer>().enabled = !level1.GetComponent<Renderer>().enabled;
+					level2.GetComponent<Renderer>().enabled = !level2.GetComponent<Renderer>().enabled;
+					level3.GetComponent<Renderer>().enabled = !level3.GetComponent<Renderer>().enabled;
+					level4.GetComponent<Renderer>().enabled = !level4.GetComponent<Renderer>().enabled;
+					level5.GetComponent<Renderer>().enabled = !level5.GetComponent<Renderer>().enabled;
+					level6.GetComponent<Renderer>().enabled = !level6.GetComponent<Renderer>().enabled;
+					level7.GetComponent<Renderer>().enabled = !level7.GetComponent<Renderer>().enabled;
+					level8.GetComponent<Renderer>().enabled = !level8.GetComponent<Renderer>().enabled;
+					level1.GetComponent<Collider>().enabled = !level1.GetComponent<Collider>().enabled;
+					level2.GetComponent<Collider>().enabled = !level2.GetComponent<Collider>().enabled;
+					level3.GetComponent<Collider>().enabled = !level3.GetComponent<Collider>().enabled;
+					level4.GetComponent<Collider>().enabled = !level4.GetComponent<Collider>().enabled;
+					level5.GetComponent<Collider>().enabled = !level5.GetComponent<Collider>().enabled;
+					level6.GetComponent<Collider>().enabled = !level6.GetComponent<Collider>().enabled;
+					level7.GetComponent<Collider>().enabled = !level7.GetComponent<Collider>().enabled;
+					level8.GetComponent<Collider>().enabled = !level8.GetComponent<Collider>().enabled;
+					levelClose.GetComponent<Renderer>().enabled = !levelClose.GetComponent<Renderer>().enabled;
+					levelClose.GetComponent<Collider>().enabled = true;
 					
-					maxSpheres.renderer.enabled = false;
-					maxSpheresValue.renderer.enabled = false;
-					maxSpheresPlus.renderer.enabled = false;
-					maxSpheresMinus.renderer.enabled = false;
-					moveSpeed.renderer.enabled = false;
-					moveSpeedValue.renderer.enabled = false;
-					moveSpeedPlus.renderer.enabled = false;
-					moveSpeedMinus.renderer.enabled = false;
-					maxSpheres.collider.enabled = false;
-					maxSpheresPlus.collider.enabled = false;
-					maxSpheresMinus.collider.enabled = false;
-					moveSpeed.collider.enabled = false;
-					moveSpeedPlus.collider.enabled = false;
-					moveSpeedMinus.collider.enabled = false;
-					optionsClose.renderer.enabled = false;
-					optionsClose.collider.enabled = false;
+					maxSpheres.GetComponent<Renderer>().enabled = false;
+					maxSpheresValue.GetComponent<Renderer>().enabled = false;
+					maxSpheresPlus.GetComponent<Renderer>().enabled = false;
+					maxSpheresMinus.GetComponent<Renderer>().enabled = false;
+					moveSpeed.GetComponent<Renderer>().enabled = false;
+					moveSpeedValue.GetComponent<Renderer>().enabled = false;
+					moveSpeedPlus.GetComponent<Renderer>().enabled = false;
+					moveSpeedMinus.GetComponent<Renderer>().enabled = false;
+					maxSpheres.GetComponent<Collider>().enabled = false;
+					maxSpheresPlus.GetComponent<Collider>().enabled = false;
+					maxSpheresMinus.GetComponent<Collider>().enabled = false;
+					moveSpeed.GetComponent<Collider>().enabled = false;
+					moveSpeedPlus.GetComponent<Collider>().enabled = false;
+					moveSpeedMinus.GetComponent<Collider>().enabled = false;
+					optionsClose.GetComponent<Renderer>().enabled = false;
+					optionsClose.GetComponent<Collider>().enabled = false;
 
 					instructionsDetails.gameObject.SetActive(false);
-					instructionsClose.renderer.enabled = false;
-					instructionsClose.collider.enabled = false;
+					instructionsClose.GetComponent<Renderer>().enabled = false;
+					instructionsClose.GetComponent<Collider>().enabled = false;
 
 					aboutDetails.gameObject.SetActive(false);
-					aboutClose.renderer.enabled = false;
-					aboutClose.collider.enabled = false;
+					aboutClose.GetComponent<Renderer>().enabled = false;
+					aboutClose.GetComponent<Collider>().enabled = false;
 				}
 			}
 			if(hit.transform.name == "Options"){
 				options.fontStyle = FontStyle.Bold;
 				if(Input.GetMouseButtonDown(0)){
-					maxSpheres.renderer.enabled = !maxSpheres.renderer.enabled;
-					maxSpheresValue.renderer.enabled = !maxSpheresValue.renderer.enabled;
-					maxSpheresPlus.renderer.enabled = !maxSpheresPlus.renderer.enabled;
-					maxSpheresMinus.renderer.enabled = !maxSpheresMinus.renderer.enabled;
-					moveSpeed.renderer.enabled = !moveSpeed.renderer.enabled;
-					moveSpeedValue.renderer.enabled = !moveSpeedValue.renderer.enabled;
-					moveSpeedPlus.renderer.enabled = !moveSpeedPlus.renderer.enabled;
-					moveSpeedMinus.renderer.enabled = !moveSpeedMinus.renderer.enabled;
-					optionsClose.renderer.enabled = !optionsClose.renderer.enabled;
-					maxSpheres.collider.enabled = !maxSpheres.collider.enabled;
-					maxSpheresPlus.collider.enabled = !maxSpheresPlus.collider.enabled;
-					maxSpheresMinus.collider.enabled = !maxSpheresMinus.collider.enabled;
-					moveSpeed.collider.enabled = !moveSpeed.collider.enabled;
-					moveSpeedPlus.collider.enabled = !moveSpeedPlus.collider.enabled;
-					moveSpeedMinus.collider.enabled = !moveSpeedMinus.collider.enabled;
-					optionsClose.collider.enabled = true;
+					maxSpheres.GetComponent<Renderer>().enabled = !maxSpheres.GetComponent<Renderer>().enabled;
+					maxSpheresValue.GetComponent<Renderer>().enabled = !maxSpheresValue.GetComponent<Renderer>().enabled;
+					maxSpheresPlus.GetComponent<Renderer>().enabled = !maxSpheresPlus.GetComponent<Renderer>().enabled;
+					maxSpheresMinus.GetComponent<Renderer>().enabled = !maxSpheresMinus.GetComponent<Renderer>().enabled;
+					moveSpeed.GetComponent<Renderer>().enabled = !moveSpeed.GetComponent<Renderer>().enabled;
+					moveSpeedValue.GetComponent<Renderer>().enabled = !moveSpeedValue.GetComponent<Renderer>().enabled;
+					moveSpeedPlus.GetComponent<Renderer>().enabled = !moveSpeedPlus.GetComponent<Renderer>().enabled;
+					moveSpeedMinus.GetComponent<Renderer>().enabled = !moveSpeedMinus.GetComponent<Renderer>().enabled;
+					optionsClose.GetComponent<Renderer>().enabled = !optionsClose.GetComponent<Renderer>().enabled;
+					maxSpheres.GetComponent<Collider>().enabled = !maxSpheres.GetComponent<Collider>().enabled;
+					maxSpheresPlus.GetComponent<Collider>().enabled = !maxSpheresPlus.GetComponent<Collider>().enabled;
+					maxSpheresMinus.GetComponent<Collider>().enabled = !maxSpheresMinus.GetComponent<Collider>().enabled;
+					moveSpeed.GetComponent<Collider>().enabled = !moveSpeed.GetComponent<Collider>().enabled;
+					moveSpeedPlus.GetComponent<Collider>().enabled = !moveSpeedPlus.GetComponent<Collider>().enabled;
+					moveSpeedMinus.GetComponent<Collider>().enabled = !moveSpeedMinus.GetComponent<Collider>().enabled;
+					optionsClose.GetComponent<Collider>().enabled = true;
 					
-					level1.renderer.enabled = false;
-					level2.renderer.enabled = false;
-					level3.renderer.enabled = false;
-					level4.renderer.enabled = false;
-					level5.renderer.enabled = false;
-					level6.renderer.enabled = false;
-					level7.renderer.enabled = false;
-					level8.renderer.enabled = false;
-					level1.collider.enabled = false;
-					level2.collider.enabled = false;
-					level3.collider.enabled = false;
-					level4.collider.enabled = false;
-					level5.collider.enabled = false;
-					level6.collider.enabled = false;
-					level7.collider.enabled = false;
-					level8.collider.enabled = false;
-					levelClose.renderer.enabled = false;
-					levelClose.collider.enabled = false;
+					level1.GetComponent<Renderer>().enabled = false;
+					level2.GetComponent<Renderer>().enabled = false;
+					level3.GetComponent<Renderer>().enabled = false;
+					level4.GetComponent<Renderer>().enabled = false;
+					level5.GetComponent<Renderer>().enabled = false;
+					level6.GetComponent<Renderer>().enabled = false;
+					level7.GetComponent<Renderer>().enabled = false;
+					level8.GetComponent<Renderer>().enabled = false;
+					level1.GetComponent<Collider>().enabled = false;
+					level2.GetComponent<Collider>().enabled = false;
+					level3.GetComponent<Collider>().enabled = false;
+					level4.GetComponent<Collider>().enabled = false;
+					level5.GetComponent<Collider>().enabled = false;
+					level6.GetComponent<Collider>().enabled = false;
+					level7.GetComponent<Collider>().enabled = false;
+					level8.GetComponent<Collider>().enabled = false;
+					levelClose.GetComponent<Renderer>().enabled = false;
+					levelClose.GetComponent<Collider>().enabled = false;
 
 					instructionsDetails.gameObject.SetActive(false);
-					instructionsClose.renderer.enabled = false;
-					instructionsClose.collider.enabled = false;
+					instructionsClose.GetComponent<Renderer>().enabled = false;
+					instructionsClose.GetComponent<Collider>().enabled = false;
 
 					aboutDetails.gameObject.SetActive(false);
-					aboutClose.renderer.enabled = false;
-					aboutClose.collider.enabled = false;
+					aboutClose.GetComponent<Renderer>().enabled = false;
+					aboutClose.GetComponent<Collider>().enabled = false;
 				}
 			}
 
@@ -268,48 +268,48 @@ public class Menu : MonoBehaviour {
 				about.fontStyle = FontStyle.Bold;
 				if(Input.GetMouseButtonDown(0)){
 					aboutDetails.gameObject.SetActive(!aboutDetails.gameObject.activeSelf);
-					aboutClose.renderer.enabled = !aboutClose.renderer.enabled;
-					aboutClose.collider.enabled = true;
+					aboutClose.GetComponent<Renderer>().enabled = !aboutClose.GetComponent<Renderer>().enabled;
+					aboutClose.GetComponent<Collider>().enabled = true;
 					
-					maxSpheres.renderer.enabled = false;
-					maxSpheresValue.renderer.enabled = false;
-					maxSpheresPlus.renderer.enabled = false;
-					maxSpheresMinus.renderer.enabled = false;
-					moveSpeed.renderer.enabled = false;
-					moveSpeedValue.renderer.enabled = false;
-					moveSpeedPlus.renderer.enabled = false;
-					moveSpeedMinus.renderer.enabled = false;
-					maxSpheres.collider.enabled = false;
-					maxSpheresPlus.collider.enabled = false;
-					maxSpheresMinus.collider.enabled = false;
-					moveSpeed.collider.enabled = false;
-					moveSpeedPlus.collider.enabled = false;
-					moveSpeedMinus.collider.enabled = false;
-					optionsClose.renderer.enabled = false;
-					optionsClose.collider.enabled = false;
+					maxSpheres.GetComponent<Renderer>().enabled = false;
+					maxSpheresValue.GetComponent<Renderer>().enabled = false;
+					maxSpheresPlus.GetComponent<Renderer>().enabled = false;
+					maxSpheresMinus.GetComponent<Renderer>().enabled = false;
+					moveSpeed.GetComponent<Renderer>().enabled = false;
+					moveSpeedValue.GetComponent<Renderer>().enabled = false;
+					moveSpeedPlus.GetComponent<Renderer>().enabled = false;
+					moveSpeedMinus.GetComponent<Renderer>().enabled = false;
+					maxSpheres.GetComponent<Collider>().enabled = false;
+					maxSpheresPlus.GetComponent<Collider>().enabled = false;
+					maxSpheresMinus.GetComponent<Collider>().enabled = false;
+					moveSpeed.GetComponent<Collider>().enabled = false;
+					moveSpeedPlus.GetComponent<Collider>().enabled = false;
+					moveSpeedMinus.GetComponent<Collider>().enabled = false;
+					optionsClose.GetComponent<Renderer>().enabled = false;
+					optionsClose.GetComponent<Collider>().enabled = false;
 					
-					level1.renderer.enabled = false;
-					level2.renderer.enabled = false;
-					level3.renderer.enabled = false;
-					level4.renderer.enabled = false;
-					level5.renderer.enabled = false;
-					level6.renderer.enabled = false;
-					level7.renderer.enabled = false;
-					level8.renderer.enabled = false;
-					level1.collider.enabled = false;
-					level2.collider.enabled = false;
-					level3.collider.enabled = false;
-					level4.collider.enabled = false;
-					level5.collider.enabled = false;
-					level6.collider.enabled = false;
-					level7.collider.enabled = false;
-					level8.collider.enabled = false;
-					levelClose.renderer.enabled = false;
-					levelClose.collider.enabled = false;
+					level1.GetComponent<Renderer>().enabled = false;
+					level2.GetComponent<Renderer>().enabled = false;
+					level3.GetComponent<Renderer>().enabled = false;
+					level4.GetComponent<Renderer>().enabled = false;
+					level5.GetComponent<Renderer>().enabled = false;
+					level6.GetComponent<Renderer>().enabled = false;
+					level7.GetComponent<Renderer>().enabled = false;
+					level8.GetComponent<Renderer>().enabled = false;
+					level1.GetComponent<Collider>().enabled = false;
+					level2.GetComponent<Collider>().enabled = false;
+					level3.GetComponent<Collider>().enabled = false;
+					level4.GetComponent<Collider>().enabled = false;
+					level5.GetComponent<Collider>().enabled = false;
+					level6.GetComponent<Collider>().enabled = false;
+					level7.GetComponent<Collider>().enabled = false;
+					level8.GetComponent<Collider>().enabled = false;
+					levelClose.GetComponent<Renderer>().enabled = false;
+					levelClose.GetComponent<Collider>().enabled = false;
 
 					instructionsDetails.gameObject.SetActive(false);
-					instructionsClose.renderer.enabled = false;
-					instructionsClose.collider.enabled = false;
+					instructionsClose.GetComponent<Renderer>().enabled = false;
+					instructionsClose.GetComponent<Collider>().enabled = false;
 				}
 			}
 			
@@ -347,22 +347,22 @@ public class Menu : MonoBehaviour {
 			if(hit.transform.name == "Options Close"){
 				optionsClose.fontStyle = FontStyle.Bold;
 				if(Input.GetMouseButtonDown(0)){
-					maxSpheres.renderer.enabled = !maxSpheres.renderer.enabled;
-					maxSpheresValue.renderer.enabled = !maxSpheresValue.renderer.enabled;
-					maxSpheresPlus.renderer.enabled = !maxSpheresPlus.renderer.enabled;
-					maxSpheresMinus.renderer.enabled = !maxSpheresMinus.renderer.enabled;
-					moveSpeed.renderer.enabled = !moveSpeed.renderer.enabled;
-					moveSpeedValue.renderer.enabled = !moveSpeedValue.renderer.enabled;
-					moveSpeedPlus.renderer.enabled = !moveSpeedPlus.renderer.enabled;
-					moveSpeedMinus.renderer.enabled = !moveSpeedMinus.renderer.enabled;
-					maxSpheres.collider.enabled = false;
-					maxSpheresPlus.collider.enabled = false;
-					maxSpheresMinus.collider.enabled = false;
-					moveSpeed.collider.enabled = false;
-					moveSpeedPlus.collider.enabled = false;
-					moveSpeedMinus.collider.enabled = false;
-					optionsClose.renderer.enabled = !optionsClose.renderer.enabled;
-					optionsClose.collider.enabled = false;
+					maxSpheres.GetComponent<Renderer>().enabled = !maxSpheres.GetComponent<Renderer>().enabled;
+					maxSpheresValue.GetComponent<Renderer>().enabled = !maxSpheresValue.GetComponent<Renderer>().enabled;
+					maxSpheresPlus.GetComponent<Renderer>().enabled = !maxSpheresPlus.GetComponent<Renderer>().enabled;
+					maxSpheresMinus.GetComponent<Renderer>().enabled = !maxSpheresMinus.GetComponent<Renderer>().enabled;
+					moveSpeed.GetComponent<Renderer>().enabled = !moveSpeed.GetComponent<Renderer>().enabled;
+					moveSpeedValue.GetComponent<Renderer>().enabled = !moveSpeedValue.GetComponent<Renderer>().enabled;
+					moveSpeedPlus.GetComponent<Renderer>().enabled = !moveSpeedPlus.GetComponent<Renderer>().enabled;
+					moveSpeedMinus.GetComponent<Renderer>().enabled = !moveSpeedMinus.GetComponent<Renderer>().enabled;
+					maxSpheres.GetComponent<Collider>().enabled = false;
+					maxSpheresPlus.GetComponent<Collider>().enabled = false;
+					maxSpheresMinus.GetComponent<Collider>().enabled = false;
+					moveSpeed.GetComponent<Collider>().enabled = false;
+					moveSpeedPlus.GetComponent<Collider>().enabled = false;
+					moveSpeedMinus.GetComponent<Collider>().enabled = false;
+					optionsClose.GetComponent<Renderer>().enabled = !optionsClose.GetComponent<Renderer>().enabled;
+					optionsClose.GetComponent<Collider>().enabled = false;
 				}
 			}
 			
@@ -410,24 +410,24 @@ public class Menu : MonoBehaviour {
 			if(hit.transform.name == "Level Select Close"){
 				levelClose.fontStyle = FontStyle.Bold;
 				if(Input.GetMouseButtonDown(0)){
-					level1.renderer.enabled = !level1.renderer.enabled;
-					level2.renderer.enabled = !level2.renderer.enabled;
-					level3.renderer.enabled = !level3.renderer.enabled;
-					level4.renderer.enabled = !level4.renderer.enabled;
-					level5.renderer.enabled = !level5.renderer.enabled;
-					level6.renderer.enabled = !level6.renderer.enabled;
-					level7.renderer.enabled = !level7.renderer.enabled;
-					level8.renderer.enabled = !level8.renderer.enabled;
-					level1.collider.enabled = false;
-					level2.collider.enabled = false;
-					level3.collider.enabled = false;
-					level4.collider.enabled = false;
-					level5.collider.enabled = false;
-					level6.collider.enabled = false;
-					level7.collider.enabled = false;
-					level8.collider.enabled = false;
-					levelClose.renderer.enabled = !levelClose.renderer.enabled;
-					levelClose.collider.enabled = false;
+					level1.GetComponent<Renderer>().enabled = !level1.GetComponent<Renderer>().enabled;
+					level2.GetComponent<Renderer>().enabled = !level2.GetComponent<Renderer>().enabled;
+					level3.GetComponent<Renderer>().enabled = !level3.GetComponent<Renderer>().enabled;
+					level4.GetComponent<Renderer>().enabled = !level4.GetComponent<Renderer>().enabled;
+					level5.GetComponent<Renderer>().enabled = !level5.GetComponent<Renderer>().enabled;
+					level6.GetComponent<Renderer>().enabled = !level6.GetComponent<Renderer>().enabled;
+					level7.GetComponent<Renderer>().enabled = !level7.GetComponent<Renderer>().enabled;
+					level8.GetComponent<Renderer>().enabled = !level8.GetComponent<Renderer>().enabled;
+					level1.GetComponent<Collider>().enabled = false;
+					level2.GetComponent<Collider>().enabled = false;
+					level3.GetComponent<Collider>().enabled = false;
+					level4.GetComponent<Collider>().enabled = false;
+					level5.GetComponent<Collider>().enabled = false;
+					level6.GetComponent<Collider>().enabled = false;
+					level7.GetComponent<Collider>().enabled = false;
+					level8.GetComponent<Collider>().enabled = false;
+					levelClose.GetComponent<Renderer>().enabled = !levelClose.GetComponent<Renderer>().enabled;
+					levelClose.GetComponent<Collider>().enabled = false;
 				}
 			}
 
@@ -436,8 +436,8 @@ public class Menu : MonoBehaviour {
 				instructionsClose.fontStyle = FontStyle.Bold;
 				if(Input.GetMouseButtonDown(0)){
 					instructionsDetails.gameObject.SetActive(!instructionsDetails.gameObject.activeSelf);
-					instructionsClose.renderer.enabled = !instructionsClose.renderer.enabled;
-					instructionsClose.collider.enabled = false;
+					instructionsClose.GetComponent<Renderer>().enabled = !instructionsClose.GetComponent<Renderer>().enabled;
+					instructionsClose.GetComponent<Collider>().enabled = false;
 				}
 			}
 
@@ -446,8 +446,8 @@ public class Menu : MonoBehaviour {
 				aboutClose.fontStyle = FontStyle.Bold;
 				if(Input.GetMouseButtonDown(0)){
 					aboutDetails.gameObject.SetActive(!aboutDetails.gameObject.activeSelf);
-					aboutClose.renderer.enabled = !aboutClose.renderer.enabled;
-					aboutClose.collider.enabled = false;
+					aboutClose.GetComponent<Renderer>().enabled = !aboutClose.GetComponent<Renderer>().enabled;
+					aboutClose.GetComponent<Collider>().enabled = false;
 				}
 			}
 		}

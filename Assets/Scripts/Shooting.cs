@@ -153,11 +153,11 @@ public class Shooting : MonoBehaviour {
 	
 	void Update () {
 		// Set ray to mouse position.
-		if(cameraMain.camera.enabled == true){
-			ray = cameraMain.camera.ScreenPointToRay(Input.mousePosition);
+		if(cameraMain.GetComponent<Camera>().enabled == true){
+			ray = cameraMain.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
 		}
 		else{
-			ray = cameraWide.camera.ScreenPointToRay(Input.mousePosition);
+			ray = cameraWide.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
 		}
 		
 		
@@ -179,24 +179,24 @@ public class Shooting : MonoBehaviour {
 		// Press W to go up.
 
 		if(Input.GetKey("w"))
-			rigidbody.MovePosition(new Vector3(rigidbody.position.x
-											  ,rigidbody.position.y+movespeed/5
-											  ,rigidbody.position.z));
+			GetComponent<Rigidbody>().MovePosition(new Vector3(GetComponent<Rigidbody>().position.x
+											  ,GetComponent<Rigidbody>().position.y+movespeed/5
+											  ,GetComponent<Rigidbody>().position.z));
 		// Press A to go Left.
 		if(Input.GetKey("a"))
-			rigidbody.MovePosition(new Vector3(rigidbody.position.x-movespeed/5
-											  ,rigidbody.position.y
-											  ,rigidbody.position.z));
+			GetComponent<Rigidbody>().MovePosition(new Vector3(GetComponent<Rigidbody>().position.x-movespeed/5
+											  ,GetComponent<Rigidbody>().position.y
+											  ,GetComponent<Rigidbody>().position.z));
 		// Press S to go Down.
 		if(Input.GetKey("s"))
-			rigidbody.MovePosition(new Vector3(rigidbody.position.x
-										      ,rigidbody.position.y-movespeed/5
-											  ,rigidbody.position.z));
+			GetComponent<Rigidbody>().MovePosition(new Vector3(GetComponent<Rigidbody>().position.x
+										      ,GetComponent<Rigidbody>().position.y-movespeed/5
+											  ,GetComponent<Rigidbody>().position.z));
 		// Press D to go Right.
 		if(Input.GetKey("d"))
-			rigidbody.MovePosition(new Vector3(rigidbody.position.x+movespeed/5
-											  ,rigidbody.position.y
-											  ,rigidbody.position.z));
+			GetComponent<Rigidbody>().MovePosition(new Vector3(GetComponent<Rigidbody>().position.x+movespeed/5
+											  ,GetComponent<Rigidbody>().position.y
+											  ,GetComponent<Rigidbody>().position.z));
 
 		
 		
@@ -222,7 +222,7 @@ public class Shooting : MonoBehaviour {
 								   ,transform.rotation)
 									as Transform;
 				// Push clone by shot power towards mouse location.
-				clone.rigidbody.AddRelativeForce(0
+				clone.GetComponent<Rigidbody>().AddRelativeForce(0
 												,0
 												,shotPower*20);
 				// Reset shot power.
@@ -233,8 +233,8 @@ public class Shooting : MonoBehaviour {
 		// Change cameras
 		// Right click to invert to other camera.
 		if(Input.GetKeyDown(KeyCode.Mouse1)) {
-			cameraMain.camera.enabled = !cameraMain.camera.enabled;
-			cameraWide.camera.enabled = !cameraWide.camera.enabled;
+			cameraMain.GetComponent<Camera>().enabled = !cameraMain.GetComponent<Camera>().enabled;
+			cameraWide.GetComponent<Camera>().enabled = !cameraWide.GetComponent<Camera>().enabled;
 		}
 		
 		
@@ -308,22 +308,22 @@ public class Shooting : MonoBehaviour {
 		
 		// Restrict movement of gun.
 		if(gun && gun.position.x > wallRight.position.x){
-			gun.rigidbody.MovePosition(new Vector3(wallLeft.position.x
+			gun.GetComponent<Rigidbody>().MovePosition(new Vector3(wallLeft.position.x
 											  ,gun.position.y
 											  ,gun.position.z));
 		}
 		if(gun && gun.position.x < wallLeft.position.x){
-			gun.rigidbody.MovePosition(new Vector3(wallRight.position.x
+			gun.GetComponent<Rigidbody>().MovePosition(new Vector3(wallRight.position.x
 											  ,gun.position.y
 											  ,gun.position.z));
 		}
 		if(gun && gun.position.y < wallDown .position.y){
-			gun.rigidbody.MovePosition(new Vector3(gun.rigidbody.position.x
+			gun.GetComponent<Rigidbody>().MovePosition(new Vector3(gun.GetComponent<Rigidbody>().position.x
 											  ,wallTop.position.y
 											  ,gun.position.z));
 		}
 		if(gun && gun.position.y > wallTop.position.y){
-			gun.rigidbody.MovePosition(new Vector3(gun.rigidbody.position.x
+			gun.GetComponent<Rigidbody>().MovePosition(new Vector3(gun.GetComponent<Rigidbody>().position.x
 											  ,wallDown.position.y
 											  ,gun.position.z));
 		}		
@@ -375,7 +375,7 @@ public class Shooting : MonoBehaviour {
 		if (Physics.Raycast(ray, out hit, 1000))
 			Debug.DrawLine(transform.position, hit.point); // Draw line from gun to mouse location.
 		
-		capsule.rigidbody.MovePosition(hit.point); // Set casule at mouse position.
+		capsule.GetComponent<Rigidbody>().MovePosition(hit.point); // Set casule at mouse position.
 		
 		if(cameraMain){
 			Vector3 cameraPosition = new Vector3(transform.position.x-cameraMain.transform.position.x
