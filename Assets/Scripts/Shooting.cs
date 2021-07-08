@@ -15,6 +15,7 @@ public class Shooting : MonoBehaviour {
 	public Transform capsule; // Shows mouse location.
 	public Transform cameraMain; // Main camera.
 	public Transform cameraWide; // Alternate camera.
+	public LineRenderer line; // .
 	
 	int frames = 0; // Count for each Update() frame ran.
 	float movespeed; // Move speed of gun.
@@ -45,13 +46,41 @@ public class Shooting : MonoBehaviour {
 	
 	bool gameOver = false;
 
+	Transform targetSphere2;
+	Transform targetSphere3;
+	float targetOrigin2;
+	float targetOrigin3;
 	void Start(){
 		maxSpheres = Menu.startSpheres;
 		movespeed = Menu.startSpeed;
+
+		if(GameObject.FindGameObjectsWithTag ("Finish").Length > 0)
+			targetSphere = GameObject.FindGameObjectsWithTag ("Finish") [0].transform;
+		if (GameObject.FindGameObjectsWithTag ("Finish").Length > 1)
+			targetSphere2 = GameObject.FindGameObjectsWithTag ("Finish") [1].transform;
+		if (GameObject.FindGameObjectsWithTag ("Finish").Length > 2)
+			targetSphere3 = GameObject.FindGameObjectsWithTag ("Finish") [2].transform;
 	}
 
+	// copied from the web
+	float originalWidth = 400.0f;  // define here the original resolution 640
+	float originalHeight = 400.0f; // you used to create the GUI contents 400
+	private Vector3 scale;
 	// Graphical User Interface
 	void OnGUI() {
+		originalWidth = 300;
+		originalHeight = 400;
+		scale.x = Screen.width/originalWidth; // calculate hor scale
+		scale.y = Screen.height/originalHeight; // calculate vert scale
+		scale.z = 1;
+		var svMat = GUI.matrix; // save current matrix
+		// substitute matrix - only scale is altered from standard
+		GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, scale);
+		// draw your GUI controls here:
+		//...
+
+
+		//GUI.Label(new Rect(0,Screen.height-60,100,60), GUIPower);
 		// Box displaying shot power at top left of screen.
 
 		/*
@@ -83,81 +112,215 @@ public class Shooting : MonoBehaviour {
 			Application.LoadLevel(0);
 */	
 
-		GUILayout.BeginArea (new Rect (0, Screen.height - 60, Screen.width, 60));
-			
-		GUILayout.BeginHorizontal();
-			GUILayout.BeginVertical ();
+		GUILayout.BeginArea (new Rect (0, 0, 100, 600));
+			GUILayout.BeginVertical();
 				GUILayout.Box (GUIPower);
-			GUILayout.EndVertical ();
+			GUILayout.Box (Unlocks.coins + " Coins");
+		GUILayout.EndArea ();
 
-			if (GUILayout.Button ("Restart (R)"))
-				Application.LoadLevel(Application.loadedLevel);
-			GUILayout.BeginVertical ();
-				// Level selecters.
-				if (GUILayout.Button ("Level 1 (1)"))
-					Application.LoadLevel(1);
-				if (GUILayout.Button ("Level 2 (2)"))
-					Application.LoadLevel(2);
-			GUILayout.EndVertical ();
-
-			GUILayout.BeginVertical ();
-				if (GUILayout.Button ("Level 3 (3)"))
-					Application.LoadLevel(3);
-				if (GUILayout.Button ("Level 4 (4)"))
-					Application.LoadLevel(4);
-			GUILayout.EndVertical ();
-
-			GUILayout.BeginVertical ();
-			if (GUILayout.Button ("Level 5 (5)"))
-				Application.LoadLevel(5);
-			if (GUILayout.Button ("Level 6 (6)"))
-				Application.LoadLevel(6);
-			GUILayout.EndVertical ();
-
-			GUILayout.BeginVertical ();
-			if (GUILayout.Button ("Level 7 (7)"))
-				Application.LoadLevel(7);
-			if (GUILayout.Button ("Level 8 (8)"))
-				Application.LoadLevel(8);
-			GUILayout.EndVertical ();
-
+		GUILayout.BeginArea (new Rect (0, 325, 90, 80));
 			// Quit button.
-			if (GUILayout.Button ("Menu(ESC)"))
+			if (GUILayout.Button ("Menu"))
 				Application.LoadLevel(0);
+
+			GUILayout.BeginHorizontal();
+				if (GUILayout.Button ("Zoom")){
+				cameraMain.GetComponent<Camera>().enabled = !cameraMain.GetComponent<Camera>().enabled;
+				cameraWide.GetComponent<Camera>().enabled = !cameraWide.GetComponent<Camera>().enabled;
+				}
+				if (scrolled < scrollLimit) { // can move into button to keep zoom buttons visible
+				if (GUILayout.Button ("+")) {
+					// Move camera forward.
+					cameraMain.Translate (Vector3.forward * 5);
+					scrolled++;
+				}
+				}
+				if (scrolled > ~scrollLimit) {
+				if (GUILayout.Button ("-")) {
+					cameraMain.Translate (Vector3.back * 5);
+					scrolled--;
+				}
+				}
 			GUILayout.EndHorizontal ();
+
+			if (GUILayout.Button ("Restart"))
+				Application.LoadLevel(Application.loadedLevel);
+		GUILayout.EndArea ();
+
+
+
+		GUILayout.BeginArea (new Rect (100, 294, 190, 100));
+			GUILayout.Box ("Levels");
+				// Level selecters.
+		GUILayout.BeginHorizontal ();
+		GUILayout.BeginVertical ();
+			if (GUILayout.Button ("Level 1"))
+				Application.LoadLevel(1);
+
+			if(Unlocks.level2Lock == false)
+			if (GUILayout.Button ("Level 2"))
+				Application.LoadLevel(2);
+
+			if(Unlocks.level3Lock == false)
+			if (GUILayout.Button ("Level 3"))
+				Application.LoadLevel(3);
+		GUILayout.EndVertical ();
+
+		GUILayout.BeginVertical ();
+			if (Unlocks.level4Lock == false)
+			if (GUILayout.Button ("Level 4"))
+				Application.LoadLevel(4);
+			if(Unlocks.level5Lock == false)
+			if (GUILayout.Button ("Level 5"))
+				Application.LoadLevel(5);
+			if(Unlocks.level6Lock == false)
+			if (GUILayout.Button ("Level 6"))
+				Application.LoadLevel(6);
+		GUILayout.EndVertical ();
+
+		GUILayout.BeginVertical ();
+			if(Unlocks.level7Lock == false)
+			if (GUILayout.Button ("Level 7"))
+				Application.LoadLevel(7);
+			if(Unlocks.level8Lock == false)
+			if (GUILayout.Button ("Level 8"))
+				Application.LoadLevel(8);
+
+
+		if (GUILayout.Button ("Unlock -20")){
+			if(Unlocks.coins >= 20){
+			if(Unlocks.nextUnlock == 8)
+			if(Unlocks.level8Lock == true){
+				Unlocks.coins -= 20;
+				Unlocks.level8Lock = false;
+			}
+			if(Unlocks.nextUnlock == 7)
+			if(Unlocks.level7Lock == true){
+				Unlocks.coins -= 20;
+				Unlocks.level7Lock = false;
+				Unlocks.nextUnlock = 8;
+			}
+			if(Unlocks.nextUnlock == 6)
+			if(Unlocks.level6Lock == true){
+				Unlocks.coins -= 20;
+				Unlocks.level6Lock = false;
+				Unlocks.nextUnlock = 7;
+			}
+				GUILayout.EndHorizontal ();
+			if(Unlocks.nextUnlock == 5)
+			if(Unlocks.level5Lock == true){
+				Unlocks.coins -= 20;
+				Unlocks.level5Lock = false;
+				Unlocks.nextUnlock = 6;
+			}
+			if(Unlocks.nextUnlock == 4)
+			if(Unlocks.level4Lock == true){
+				Unlocks.coins -= 20;
+				Unlocks.level4Lock = false;
+				Unlocks.nextUnlock = 5;
+			}
+			if(Unlocks.nextUnlock == 3)
+			if(Unlocks.level3Lock == true){
+				Unlocks.coins -= 20;
+				Unlocks.level3Lock = false;
+				Unlocks.nextUnlock = 4;
+			}
+			if(Unlocks.nextUnlock == 2)
+			if(Unlocks.level2Lock == true){
+				Unlocks.coins -= 20;
+				Unlocks.level2Lock = false;
+				Unlocks.nextUnlock = 3;
+			}
+			}
+		}
+		GUILayout.EndVertical ();
+			
+		GUILayout.EndVertical ();
 		GUILayout.EndArea ();
 		
 		
 		// Game over.
-		GUILayout.BeginArea (new Rect (Screen.width/2-125, Screen.height/2-50, 250, 100));
+		GUILayout.BeginArea (new Rect (90, 100, 150, 150));
 		if(gameOver == true){
-			GUILayout.Box("Congratulations, you completed level " + Application.loadedLevel + "!");
+
+			// Level progression
+			if(Unlocks.level2Lock == true)
+			if(Application.loadedLevel == 1){
+				Unlocks.level2Lock = false;
+				Unlocks.coins += 2;
+				Unlocks.nextUnlock = 3;
+			}
+			if(Unlocks.level3Lock == true)
+			if(Application.loadedLevel == 2){
+				Unlocks.level3Lock = false;
+				Unlocks.coins += 5;
+				Unlocks.nextUnlock = 4;
+			}
+			if(Unlocks.level4Lock == true)
+			if(Application.loadedLevel == 3){
+				Unlocks.level4Lock = false;
+				Unlocks.coins += 10;
+				Unlocks.nextUnlock = 5;
+			}
+			if(Unlocks.level5Lock == true)
+			if(Application.loadedLevel == 4){
+				Unlocks.level5Lock = false;
+				Unlocks.coins += 20;
+				Unlocks.nextUnlock = 6;
+			}
+			if(Unlocks.level6Lock == true)
+			if(Application.loadedLevel == 5){
+				Unlocks.level6Lock = false;
+				Unlocks.coins += 35;
+				Unlocks.nextUnlock = 7;
+			}
+			if(Unlocks.level7Lock == true)
+			if(Application.loadedLevel == 6){
+				Unlocks.level7Lock = false;
+				Unlocks.coins += 50;
+				Unlocks.nextUnlock = 8;
+			}
+			if(Unlocks.level8Lock == true)
+			if(Application.loadedLevel == 7){
+				Unlocks.level8Lock = false;
+				Unlocks.coins += 70;
+			}
+
+			GUILayout.Box("Congratulations!" + "\n" + "You completed level " + Application.loadedLevel + "!");
 			if(Application.loadedLevel < 8){
-				if (GUILayout.Button("Next Level (Space)") || Input.GetKeyDown(KeyCode.Space))
+				if (GUILayout.Button("Next Level") || Input.GetKeyDown(KeyCode.Space))
 					Application.LoadLevel(Application.loadedLevel+1);
 			}
 			else {
-				GUILayout.Box("Game finished, go back to main menu?");
-				if (GUILayout.Button("Back to main menu. (Space)") || Input.GetKeyDown(KeyCode.Space))
+				GUILayout.Box("Game finished!" + "\n" + "Thank you for playing!" + "\n" + "Go back to main menu?");
+				if (GUILayout.Button("Back to main menu.") || Input.GetKeyDown(KeyCode.Space))
 					Application.LoadLevel(0);
 			}
 			//gameOver = false;
 		}
 		GUILayout.EndArea ();
-	}
-	
-	void OnDrawGizmosSelected() {
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, hit.point);
+
+		// restore matrix before returning
+		GUI.matrix = svMat; // restore matrix
 	}
 	
 	void Update () {
+		Debug.DrawLine(transform.position, hit.point);
+
+		line.SetPosition (0, transform.position);
+		line.SetPosition (1, hit.point);
+
+		if(PlayerPrefs.GetFloat("coins") != Unlocks.coins){
+			PlayerPrefs.SetFloat ("coins", Unlocks.coins);
+		}
+		PlayerPrefs.Save ();
+
 		// Set ray to mouse position.
-		if(cameraMain.camera.enabled == true){
-			ray = cameraMain.camera.ScreenPointToRay(Input.mousePosition);
+		if(cameraMain.GetComponent<Camera>().enabled == true){
+			ray = cameraMain.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
 		}
 		else{
-			ray = cameraWide.camera.ScreenPointToRay(Input.mousePosition);
+			ray = cameraWide.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
 		}
 		
 		
@@ -179,24 +342,24 @@ public class Shooting : MonoBehaviour {
 		// Press W to go up.
 
 		if(Input.GetKey("w"))
-			rigidbody.MovePosition(new Vector3(rigidbody.position.x
-											  ,rigidbody.position.y+movespeed/5
-											  ,rigidbody.position.z));
+			GetComponent<Rigidbody>().MovePosition(new Vector3(GetComponent<Rigidbody>().position.x
+											  ,GetComponent<Rigidbody>().position.y+movespeed/5
+											  ,GetComponent<Rigidbody>().position.z));
 		// Press A to go Left.
 		if(Input.GetKey("a"))
-			rigidbody.MovePosition(new Vector3(rigidbody.position.x-movespeed/5
-											  ,rigidbody.position.y
-											  ,rigidbody.position.z));
+			GetComponent<Rigidbody>().MovePosition(new Vector3(GetComponent<Rigidbody>().position.x-movespeed/5
+											  ,GetComponent<Rigidbody>().position.y
+											  ,GetComponent<Rigidbody>().position.z));
 		// Press S to go Down.
 		if(Input.GetKey("s"))
-			rigidbody.MovePosition(new Vector3(rigidbody.position.x
-										      ,rigidbody.position.y-movespeed/5
-											  ,rigidbody.position.z));
+			GetComponent<Rigidbody>().MovePosition(new Vector3(GetComponent<Rigidbody>().position.x
+										      ,GetComponent<Rigidbody>().position.y-movespeed/5
+											  ,GetComponent<Rigidbody>().position.z));
 		// Press D to go Right.
 		if(Input.GetKey("d"))
-			rigidbody.MovePosition(new Vector3(rigidbody.position.x+movespeed/5
-											  ,rigidbody.position.y
-											  ,rigidbody.position.z));
+			GetComponent<Rigidbody>().MovePosition(new Vector3(GetComponent<Rigidbody>().position.x+movespeed/5
+											  ,GetComponent<Rigidbody>().position.y
+											  ,GetComponent<Rigidbody>().position.z));
 
 		
 		
@@ -222,7 +385,7 @@ public class Shooting : MonoBehaviour {
 								   ,transform.rotation)
 									as Transform;
 				// Push clone by shot power towards mouse location.
-				clone.rigidbody.AddRelativeForce(0
+				clone.GetComponent<Rigidbody>().AddRelativeForce(0
 												,0
 												,shotPower*20);
 				// Reset shot power.
@@ -233,8 +396,8 @@ public class Shooting : MonoBehaviour {
 		// Change cameras
 		// Right click to invert to other camera.
 		if(Input.GetKeyDown(KeyCode.Mouse1)) {
-			cameraMain.camera.enabled = !cameraMain.camera.enabled;
-			cameraWide.camera.enabled = !cameraWide.camera.enabled;
+			cameraMain.GetComponent<Camera>().enabled = !cameraMain.GetComponent<Camera>().enabled;
+			cameraWide.GetComponent<Camera>().enabled = !cameraWide.GetComponent<Camera>().enabled;
 		}
 		
 		
@@ -308,22 +471,22 @@ public class Shooting : MonoBehaviour {
 		
 		// Restrict movement of gun.
 		if(gun && gun.position.x > wallRight.position.x){
-			gun.rigidbody.MovePosition(new Vector3(wallLeft.position.x
+			gun.GetComponent<Rigidbody>().MovePosition(new Vector3(wallLeft.position.x
 											  ,gun.position.y
 											  ,gun.position.z));
 		}
 		if(gun && gun.position.x < wallLeft.position.x){
-			gun.rigidbody.MovePosition(new Vector3(wallRight.position.x
+			gun.GetComponent<Rigidbody>().MovePosition(new Vector3(wallRight.position.x
 											  ,gun.position.y
 											  ,gun.position.z));
 		}
 		if(gun && gun.position.y < wallDown .position.y){
-			gun.rigidbody.MovePosition(new Vector3(gun.rigidbody.position.x
+			gun.GetComponent<Rigidbody>().MovePosition(new Vector3(gun.GetComponent<Rigidbody>().position.x
 											  ,wallTop.position.y
 											  ,gun.position.z));
 		}
 		if(gun && gun.position.y > wallTop.position.y){
-			gun.rigidbody.MovePosition(new Vector3(gun.rigidbody.position.x
+			gun.GetComponent<Rigidbody>().MovePosition(new Vector3(gun.GetComponent<Rigidbody>().position.x
 											  ,wallDown.position.y
 											  ,gun.position.z));
 		}		
@@ -349,25 +512,45 @@ public class Shooting : MonoBehaviour {
 			Destroy(clone.gameObject, 5f);
 		}
 		
-		
-		
-		
-		
-		
+		/*
+		// While a target sphere exists
+			if(GameObject.FindGameObjectsWithTag ("Finish").Length > 0){
+
+			targetSphere = GameObject.FindGameObjectsWithTag ("Finish")[GameObject.FindGameObjectsWithTag ("Finish").Length-1].transform;
+			Vector3 tmp = targetSphere.transform.position;
+			tmp.x = targetOrigin;
+			targetSphere.transform.position = tmp;
+			//targetSphere.transform.position.x = targetOrigin;
+		}
+		*/
+
+
 		// Hitting target.
 		if(targetOrigin != 0 && targetSphere)
 		{
-			if(hitChecker == "Nothing")
-			if(targetSphere.transform.position.x == targetOrigin) {
-				hitChecker = "Not Hit";
-			}
-			if(hitChecker == "Nothing" || hitChecker == "Not Hit")
+			//print ("target exists");
+//			if(hitChecker == "Nothing")
+//			if(targetSphere.transform.position.x == targetOrigin) {
+//				hitChecker = "Not Hit";
+			//	print ("target has position");
+//			}
+//			if(hitChecker == "Nothing" || hitChecker == "Not Hit")
 			if(targetSphere.transform.position.x != targetOrigin) {
 				Destroy(targetSphere.gameObject,2f);
 				hitChecker = "Hit";
+			//	print ("target moved");
 			}
 		}
-		
+
+		// check hit for target 2
+		if (targetOrigin2 != 0 && targetSphere2)
+		if (targetSphere2.transform.position.x != targetOrigin2)
+			Destroy (targetSphere2.gameObject, 2f);
+
+		// check hit for target 3
+		if(targetOrigin3 != 0 && targetSphere3)
+		if(targetSphere3.transform.position.x != targetOrigin3)
+			Destroy(targetSphere3.gameObject,2f);
 		
 		// Every frame maintinance.
 				
@@ -375,7 +558,7 @@ public class Shooting : MonoBehaviour {
 		if (Physics.Raycast(ray, out hit, 1000))
 			Debug.DrawLine(transform.position, hit.point); // Draw line from gun to mouse location.
 		
-		capsule.rigidbody.MovePosition(hit.point); // Set casule at mouse position.
+		capsule.GetComponent<Rigidbody>().MovePosition(hit.point); // Set casule at mouse position.
 		
 		if(cameraMain){
 			Vector3 cameraPosition = new Vector3(transform.position.x-cameraMain.transform.position.x
@@ -387,8 +570,11 @@ public class Shooting : MonoBehaviour {
 		// Rotation of gun towards mouse position.
 		gunRotation = new Vector3(hit.point.x,hit.point.y,0);
 		transform.LookAt(gunRotation);
-		
+
+		// Setting target sphere origin
 		if(targetSphere)targetOrigin = targetSphere.transform.position.x;
+		if(targetSphere2)targetOrigin2 = targetSphere2.transform.position.x;
+		if(targetSphere3)targetOrigin3 = targetSphere3.transform.position.x;
 		
 		capsule.Rotate(new Vector3(0,0,10)); // Rotate capsule.
 		
