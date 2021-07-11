@@ -6,8 +6,8 @@ Introduction
 
 Originally created as a game jam using Unity, this is a puzzle game with the idea of using planets as marbles.
 
-Version 1.2
-Working with Unity 4.7.2
+Version 1.5
+Working with Unity 2020.3.13f1
 
 Purpose
 -------
@@ -19,12 +19,6 @@ To-do list
 ==========
 
 &#x2611; Player
-
-- &#x2611; Player movement
-
-- &#x2611; Movement restriction
-
-- &#9744; Moves limit instead of speed
 
 - &#x2611; Shooting
 
