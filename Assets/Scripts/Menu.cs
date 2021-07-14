@@ -6,8 +6,6 @@ namespace SpaceMarbles.V5
 {
     public class Menu :MonoBehaviour
     {
-
-
         public TextMesh title;
         public TextMesh play;
         public TextMesh instructions;

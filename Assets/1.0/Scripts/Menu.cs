@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using SpaceMarbles.V5;
 
 public class Menu : MonoBehaviour {
 	public TextMesh title;
@@ -117,8 +118,11 @@ public class Menu : MonoBehaviour {
 			}
 			if(hit.transform.name == "Quit"){
 				quit.fontStyle = FontStyle.Bold;
-				if(Input.GetMouseButtonDown(0))
+				if (Input.GetMouseButtonDown(0))
+				{
+					ButtonsActions.GM.SetActive(true); //GameObject.Find("GameManager").SetActive(true);
 					SceneManager.LoadScene(MainMenuRedoneName);
+				}
 			}
 
 

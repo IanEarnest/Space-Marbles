@@ -50,21 +50,21 @@ namespace SpaceMarbles.V5
 
         bool gameOver = false;
 
-        void Start()
-        {
-            maxSpheres = Menu.startSpheres;
-            movespeed = Menu.startSpeed;
-        }
+        //void Start()
+        //{
+        //    maxSpheres = Menu.startSpheres;
+        //    movespeed = Menu.startSpeed;
+        //}
 
         // Graphical User Interface
-        void OnGUI()
-        {
-            myGameGUI.LevelButtons();
-            if (gameOver == true)
-            {
-                myGameGUI.GameOver();
-            }
-        }
+        //void OnGUI()
+        //{
+        //    myGameGUI.LevelButtons();
+        //    if (gameOver == true)
+        //    {
+        //        myGameGUI.GameOver();
+        //    }
+        //}
 
         //void OnDrawGizmosSelected() {
         //       Gizmos.color = Color.red;
@@ -92,141 +92,140 @@ namespace SpaceMarbles.V5
             // Escape to go back to main menu.
 
             // Menu
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                ButtonsActions.LoadLevel(0);
-            }
+            //if (Input.GetKeyDown(KeyCode.Escape))
+            //{
+            //    ButtonsActions.LoadLevel(0);
+            //}
 
             // Movement for gun.
             // Press W to go up.
 
-            if (Input.GetKey("w"))
-                GetComponent<Rigidbody>().MovePosition(new Vector3(GetComponent<Rigidbody>().position.x
-                                                  , GetComponent<Rigidbody>().position.y + movespeed / 5
-                                                  , GetComponent<Rigidbody>().position.z));
-            // Press A to go Left.
-            if (Input.GetKey("a"))
-                GetComponent<Rigidbody>().MovePosition(new Vector3(GetComponent<Rigidbody>().position.x - movespeed / 5
-                                                  , GetComponent<Rigidbody>().position.y
-                                                  , GetComponent<Rigidbody>().position.z));
-            // Press S to go Down.
-            if (Input.GetKey("s"))
-                GetComponent<Rigidbody>().MovePosition(new Vector3(GetComponent<Rigidbody>().position.x
-                                                  , GetComponent<Rigidbody>().position.y - movespeed / 5
-                                                  , GetComponent<Rigidbody>().position.z));
-            // Press D to go Right.
-            if (Input.GetKey("d"))
-                GetComponent<Rigidbody>().MovePosition(new Vector3(GetComponent<Rigidbody>().position.x + movespeed / 5
-                                                  , GetComponent<Rigidbody>().position.y
-                                                  , GetComponent<Rigidbody>().position.z));
+            //if (Input.GetKey("w"))
+            //    GetComponent<Rigidbody>().MovePosition(new Vector3(GetComponent<Rigidbody>().position.x
+            //                                      , GetComponent<Rigidbody>().position.y + movespeed / 5
+            //                                      , GetComponent<Rigidbody>().position.z));
+            //// Press A to go Left.
+            //if (Input.GetKey("a"))
+            //    GetComponent<Rigidbody>().MovePosition(new Vector3(GetComponent<Rigidbody>().position.x - movespeed / 5
+            //                                      , GetComponent<Rigidbody>().position.y
+            //                                      , GetComponent<Rigidbody>().position.z));
+            //// Press S to go Down.
+            //if (Input.GetKey("s"))
+            //    GetComponent<Rigidbody>().MovePosition(new Vector3(GetComponent<Rigidbody>().position.x
+            //                                      , GetComponent<Rigidbody>().position.y - movespeed / 5
+            //                                      , GetComponent<Rigidbody>().position.z));
+            //// Press D to go Right.
+            //if (Input.GetKey("d"))
+            //    GetComponent<Rigidbody>().MovePosition(new Vector3(GetComponent<Rigidbody>().position.x + movespeed / 5
+            //                                      , GetComponent<Rigidbody>().position.y
+            //                                      , GetComponent<Rigidbody>().position.z));
 
 
 
             // Limit Spheres created.
-            if (spheres < maxSpheres)
-            {
                 // Increase shot power.
-                // Check if left mouse button if pressed.
-                if (Input.GetKey(KeyCode.Mouse0))
-                {
                     // Check if shot power is under limit.
-                    if (shotPower < shotPowerLimit)
                         // Increase shot power.
-                        shotPower += shotPowerPlus;
                     // Display shot power
-                    GUIPower = "Power: " + shotPower;
-                }
+            //if (spheres < maxSpheres)
+            //{
+            //    if (Input.GetKey(KeyCode.Mouse0))
+            //    {
+            //        if (shotPower < shotPowerLimit)
+            //            shotPower += shotPowerPlus;
+            //        GUIPower = "Power: " + shotPower;
+            //    }
 
-                // Launch Sphere clone.
-                // Check if left mouse button is released.
-                if (Input.GetKeyUp(KeyCode.Mouse0))
-                {
-                    // Set Clone instance of a Sphere and position at gun.
-                    clone = Instantiate(sphere
-                                       , transform.position
-                                       , transform.rotation)
-                                        as Transform;
-                    // Push clone by shot power towards mouse location.
-                    clone.GetComponent<Rigidbody>().AddRelativeForce(0
-                                                    , 0
-                                                    , shotPower * 20);
-                    // Reset shot power.
-                    shotPower = shotPowerStart;
-                }
-            }
+            //    // Launch Sphere clone.
+            //    // Check if left mouse button is released.
+            //    if (Input.GetKeyUp(KeyCode.Mouse0))
+            //    {
+            //        // Set Clone instance of a Sphere and position at gun.
+            //        clone = Instantiate(sphere
+            //                           , transform.position
+            //                           , transform.rotation)
+            //                            as Transform;
+            //        // Push clone by shot power towards mouse location.
+            //        clone.GetComponent<Rigidbody>().AddRelativeForce(0
+            //                                        , 0
+            //                                        , shotPower * 20);
+            //        // Reset shot power.
+            //        shotPower = shotPowerStart;
+            //    }
+            //}
 
             // Change cameras
             // Right click to invert to other camera.
-            if (Input.GetKeyDown(KeyCode.Mouse1))
-            {
-                cameraMain.GetComponent<Camera>().enabled = !cameraMain.GetComponent<Camera>().enabled;
-                cameraWide.GetComponent<Camera>().enabled = !cameraWide.GetComponent<Camera>().enabled;
-            }
+            //if (Input.GetKeyDown(KeyCode.Mouse1))
+            //{
+            //    cameraMain.GetComponent<Camera>().enabled = !cameraMain.GetComponent<Camera>().enabled;
+            //    cameraWide.GetComponent<Camera>().enabled = !cameraWide.GetComponent<Camera>().enabled;
+            //}
 
 
-            float scrollWheel = Input.GetAxis("Mouse ScrollWheel");
+            //float scrollWheel = Input.GetAxis("Mouse ScrollWheel");
 
 
-            if (scrolled < scrollLimit)
-            {
-                // Mouse scroll forwards.
-                if (scrollWheel > 0)
-                {
-                    // Move camera forward.
-                    cameraMain.Translate(Vector3.forward * 5);
-                    scrolled++;
-                }
-            }
-            if (scrolled > ~scrollLimit)
-            { // ~ means reverse.
-              // Mouse scroll backwards.
-                if (scrollWheel < 0)
-                {
-                    // Move camera back.
-                    cameraMain.Translate(Vector3.back * 5);
-                    scrolled--;
-                }
-            }
+            //if (scrolled < scrollLimit)
+            //{
+            //    // Mouse scroll forwards.
+            //    if (scrollWheel > 0)
+            //    {
+            //        // Move camera forward.
+            //        cameraMain.Translate(Vector3.forward * 5);
+            //        scrolled++;
+            //    }
+            //}
+            //if (scrolled > ~scrollLimit)
+            //{ // ~ means reverse.
+            //  // Mouse scroll backwards.
+            //    if (scrollWheel < 0)
+            //    {
+            //        // Move camera back.
+            //        cameraMain.Translate(Vector3.back * 5);
+            //        scrolled--;
+            //    }
+            //}
 
             // 1, 2, 3, 4 for each level.
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                SceneManager.LoadScene(1);
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                SceneManager.LoadScene(2);
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                SceneManager.LoadScene(3);
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha4))
-            {
-                SceneManager.LoadScene(4);
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha5))
-            {
-                SceneManager.LoadScene(5);
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha6))
-            {
-                SceneManager.LoadScene(6);
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha7))
-            {
-                SceneManager.LoadScene(7);
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha8))
-            {
-                SceneManager.LoadScene(8);
-            }
+            //if (Input.GetKeyDown(KeyCode.Alpha1))
+            //{
+            //    SceneManager.LoadScene(1);
+            //}
+            //if (Input.GetKeyDown(KeyCode.Alpha2))
+            //{
+            //    SceneManager.LoadScene(2);
+            //}
+            //if (Input.GetKeyDown(KeyCode.Alpha3))
+            //{
+            //    SceneManager.LoadScene(3);
+            //}
+            //if (Input.GetKeyDown(KeyCode.Alpha4))
+            //{
+            //    SceneManager.LoadScene(4);
+            //}
+            //if (Input.GetKeyDown(KeyCode.Alpha5))
+            //{
+            //    SceneManager.LoadScene(5);
+            //}
+            //if (Input.GetKeyDown(KeyCode.Alpha6))
+            //{
+            //    SceneManager.LoadScene(6);
+            //}
+            //if (Input.GetKeyDown(KeyCode.Alpha7))
+            //{
+            //    SceneManager.LoadScene(7);
+            //}
+            //if (Input.GetKeyDown(KeyCode.Alpha8))
+            //{
+            //    SceneManager.LoadScene(8);
+            //}
 
-            // R to restart current level.
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            }
+            //// R to restart current level.
+            //if (Input.GetKeyDown(KeyCode.R))
+            //{
+            //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            //}
 
 
             // Change timescale of game.
@@ -246,56 +245,56 @@ namespace SpaceMarbles.V5
             // Restricting movement.
 
             // Restrict movement of gun.
-            if (gun && gun.position.x > wallRight.position.x)
-            {
-                gun.GetComponent<Rigidbody>().MovePosition(new Vector3(wallLeft.position.x
-                                                  , gun.position.y
-                                                  , gun.position.z));
-            }
-            if (gun && gun.position.x < wallLeft.position.x)
-            {
-                gun.GetComponent<Rigidbody>().MovePosition(new Vector3(wallRight.position.x
-                                                  , gun.position.y
-                                                  , gun.position.z));
-            }
-            if (gun && gun.position.y < wallDown.position.y)
-            {
-                gun.GetComponent<Rigidbody>().MovePosition(new Vector3(gun.GetComponent<Rigidbody>().position.x
-                                                  , wallTop.position.y
-                                                  , gun.position.z));
-            }
-            if (gun && gun.position.y > wallTop.position.y)
-            {
-                gun.GetComponent<Rigidbody>().MovePosition(new Vector3(gun.GetComponent<Rigidbody>().position.x
-                                                  , wallDown.position.y
-                                                  , gun.position.z));
-            }
+            //if (gun && gun.position.x > wallRight.position.x)
+            //{
+            //    gun.GetComponent<Rigidbody>().MovePosition(new Vector3(wallLeft.position.x
+            //                                      , gun.position.y
+            //                                      , gun.position.z));
+            //}
+            //if (gun && gun.position.x < wallLeft.position.x)
+            //{
+            //    gun.GetComponent<Rigidbody>().MovePosition(new Vector3(wallRight.position.x
+            //                                      , gun.position.y
+            //                                      , gun.position.z));
+            //}
+            //if (gun && gun.position.y < wallDown.position.y)
+            //{
+            //    gun.GetComponent<Rigidbody>().MovePosition(new Vector3(gun.GetComponent<Rigidbody>().position.x
+            //                                      , wallTop.position.y
+            //                                      , gun.position.z));
+            //}
+            //if (gun && gun.position.y > wallTop.position.y)
+            //{
+            //    gun.GetComponent<Rigidbody>().MovePosition(new Vector3(gun.GetComponent<Rigidbody>().position.x
+            //                                      , wallDown.position.y
+            //                                      , gun.position.z));
+            //}
 
-            string clonePosition = "";
-            // Restricting clone of Sphere movement.
-            if (clone)
-            {
-                if (clone.position.x > wallRight.position.x || clone.position.x < wallLeft.position.x
-                || clone.position.y < wallDown.position.y || clone.position.y > wallTop.position.y)
-                {
-                    clonePosition = "Outside";
-                }
-                else if (clone.position.x < wallRight.position.x || clone.position.x > wallLeft.position.x
-                     || clone.position.y > wallDown.position.y || clone.position.y < wallTop.position.y)
-                {
-                    clonePosition = "Inside";
-                }
-            }
-            if (clonePosition == "Outside")
-            {
-                // When clone is created and is outside the walls, destroy clone.
-                Destroy(clone.gameObject);
-            }
-            if (clonePosition == "Inside")
-            {
-                // When clone is created and inside the walls, destroy clone in 10 seconds.
-                Destroy(clone.gameObject, 5f);
-            }
+            //string clonePosition = "";
+            //// Restricting clone of Sphere movement.
+            //if (clone)
+            //{
+            //    if (clone.position.x > wallRight.position.x || clone.position.x < wallLeft.position.x
+            //    || clone.position.y < wallDown.position.y || clone.position.y > wallTop.position.y)
+            //    {
+            //        clonePosition = "Outside";
+            //    }
+            //    else if (clone.position.x < wallRight.position.x || clone.position.x > wallLeft.position.x
+            //         || clone.position.y > wallDown.position.y || clone.position.y < wallTop.position.y)
+            //    {
+            //        clonePosition = "Inside";
+            //    }
+            //}
+            //if (clonePosition == "Outside")
+            //{
+            //    // When clone is created and is outside the walls, destroy clone.
+            //    Destroy(clone.gameObject);
+            //}
+            //if (clonePosition == "Inside")
+            //{
+            //    // When clone is created and inside the walls, destroy clone in 10 seconds.
+            //    Destroy(clone.gameObject, 5f);
+            //}
 
 
 

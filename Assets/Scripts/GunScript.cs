@@ -6,34 +6,64 @@ namespace SpaceMarbles.V5
 {
     public class GunScript :MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
         public GameObject sphere;
         public GameObject clone;
         public GameObject capsule;
-        int shotPower = 10;
-        int shotPowerPlus = 2;
-        int shotPowerLimit = 100;
-        int shotPowerStart = 10;
+        public GameObject line;
+        LineRenderer lineR;
+        public static int shotPower = 10;
+        public static int shotPowerPlus = 2;
+        public static int shotPowerLimit = 100;
+        public static int shotPowerStart = 10;
         int multiplier = 20;
-
+        float cloneDestroyTimer = 5f;
+        public static int activeSpheres = 0;
+        public static int maxSpheres = 5;
         // Mouse Position
         Ray ray;
         RaycastHit hit;
         // Gun rotation towards mouse.
         Vector3 gunRotation;
+        string capsuleName = "Capsule";
+        float capsuleRotateSpeed = -10f;
 
-
-        // Update is called once per frame
-        void Update()
+        private void Awake()
         {
-            LaunchSphere();
+            // Find capsule or create a new one
+            GameObject foundObject = GameObject.Find(capsuleName);
+            if (foundObject == null)
+            {
+                capsule = Instantiate(capsule);
+                //print("capsule created");
+            }
+            else
+            {
+                capsule = GameObject.Find(capsuleName);
+                //print("capsule found");
+            }
+        }
+        void Start()
+        {
+            line = Instantiate(line);
+            lineR = line.GetComponent<LineRenderer>();
+        }
+
+        void FixedUpdate()
+        {
+            //LaunchSphere();
+            CountSpheres();
+            CountTargetSpheres();
             CurserPointers();
 
             GunRotation();
+        }
+        private void CountSpheres()
+        {
+            activeSpheres = GameObject.FindGameObjectsWithTag("TargetSphere").Length;
+        }
+        private void CountTargetSpheres()
+        {
+            activeSpheres = GameObject.FindGameObjectsWithTag("Sphere").Length;
         }
 
         private void GunRotation()
@@ -50,43 +80,43 @@ namespace SpaceMarbles.V5
 
             // Draw line from gun to mouse location.
             if (Physics.Raycast(ray, out hit, 1000))
+            {
                 Debug.DrawLine(transform.position, hit.point);
+                lineR.SetPosition(0, transform.position); // gun position
+                lineR.SetPosition(lineR.positionCount-1, hit.point); // mouse position
+            }
 
             // Set capsule at mouse position.
             capsule.GetComponent<Rigidbody>().MovePosition(hit.point);
+            capsule.transform.Rotate(new Vector3(0, 0, capsuleRotateSpeed)); // Rotate capsule.
         }
 
-        private void LaunchSphere()
+        public void LaunchSphereMaxPower()
         {
-            if (Input.GetKeyUp(KeyCode.Mouse1))
+            shotPower = shotPowerLimit;
+            InstantiateCloneAndLaunch();
+        }
+        public void PowerUpGun()
+        {
+            if (GunScript.shotPower < GunScript.shotPowerLimit && activeSpheres < maxSpheres)
             {
-                shotPower = shotPowerLimit;
-                InstantiateCloneAndLaunch();
+                GunScript.shotPower += GunScript.shotPowerPlus;
             }
+        }
 
-
-            // Increase shot power. - left click hold, increase shot power
-            if (Input.GetKey(KeyCode.Mouse0))
+        public void InstantiateCloneAndLaunch()
+        {
+            if (activeSpheres < maxSpheres)
             {
-                if (shotPower < shotPowerLimit)
-                {
-                    shotPower += shotPowerPlus;
-                }
-            }
-
-
-            // On left click release, Launch Sphere clone from Gun to mouse position at power level.
-            if (Input.GetKeyUp(KeyCode.Mouse0))
-            {
-                InstantiateCloneAndLaunch();
+                clone = Instantiate(sphere, transform.position, transform.rotation);
+                clone.GetComponent<Rigidbody>().AddRelativeForce(0, 0, shotPower * multiplier);
                 shotPower = shotPowerStart;
+                Destroy(clone.gameObject, cloneDestroyTimer);
             }
-        }
-
-        private void InstantiateCloneAndLaunch()
-        {
-            clone = Instantiate(sphere, transform.position, transform.rotation);
-            clone.GetComponent<Rigidbody>().AddRelativeForce(0, 0, shotPower * multiplier);
+            else
+            {
+                //print("Too many spheres");
+            }
         }
     }
 }

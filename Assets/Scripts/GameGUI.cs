@@ -1,13 +1,83 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace SpaceMarbles.V5
 {
-    public class GameGUI
+    public class GameGUI :MonoBehaviour
     {
+        //GunScript myGunScript;
         string GUIPower = "";
+        TextMeshProUGUI Level;
+        TextMeshProUGUI Power;
+        TextMeshProUGUI Spheres;
+        TextMeshProUGUI Targets;
+        Button PlayBtn;
+        string LevelText = "";
+        string PowerText = "Power: ";
+        string SpheresText = "Spheres: ";
+        string TargetsText = "Targets: ";
+        bool isMenuScene;
+
+        void Awake()
+        {
+            //myGunScript = GameObject.Find("GameManager").GetComponent<GunScript>();
+            if (isMenuScene)
+            {
+                GUITryAssign();
+            }
+            else if (!isMenuScene)
+            {
+                PlayBtn = GameObject.Find("PlayBtn").GetComponent<Button>();
+                PlayBtn.Select();
+            }
+        }
+        void GUITryAssign()
+        {
+            try
+            {
+                Level = GameObject.Find("Level").GetComponent<TextMeshProUGUI>();
+                Power = GameObject.Find("Power").GetComponent<TextMeshProUGUI>();
+                Spheres = GameObject.Find("Spheres").GetComponent<TextMeshProUGUI>();
+                Targets = GameObject.Find("Targets").GetComponent<TextMeshProUGUI>();
+            }
+            catch (System.Exception e)
+            {
+                //print(e.Message);
+            }
+        }
+        int frame = 0;
+        int frameCheck = 60;
+        private void Update()
+        {
+            if (frame > frameCheck)
+            {
+                isMenuScene = SceneManager.GetActiveScene().name == ButtonsActions.mainMenuName;
+                //print($"Main Scene? {isMenuScene}");
+            }
+
+            if (Power == null && frame > frameCheck)
+            {
+                GUITryAssign();
+            }
+            else if (Power != null)
+            {
+                Level.text = $"{LevelText}{GameManager.currentLevel}";
+                Power.text = $"{PowerText}{GunScript.shotPower}";
+                Spheres.text = $"{SpheresText}{GunScript.activeSpheres}/{GunScript.maxSpheres}";
+                Targets.text = $"{TargetsText}{GameManager.targetsHitList.Count}/{GameManager.targetsList.Count}";
+            }
+
+
+            if (frame > frameCheck)
+            {
+                frame = 0;
+            }
+            frame++;
+        }
 
         public void LevelButtons()
         {
@@ -62,7 +132,7 @@ namespace SpaceMarbles.V5
             GUILayout.BeginArea(new Rect(Screen.width / 2 - 125, Screen.height / 2 - 50, 250, 100));
 
             GUILayout.Box("Congratulations, you completed level " + SceneManager.GetActiveScene().buildIndex + "!");
-            if (SceneManager.GetActiveScene().buildIndex < 8)
+            if (SceneManager.GetActiveScene().name != ButtonsActions.lastLevel)
             {
                 if (GUILayout.Button("Next Level (Space)") || Input.GetKeyDown(KeyCode.Space))
                     ButtonsActions.LoadLevel(SceneManager.GetActiveScene().buildIndex + 1);
@@ -71,7 +141,7 @@ namespace SpaceMarbles.V5
             {
                 GUILayout.Box("Game finished, go back to main menu?");
                 if (GUILayout.Button("Back to main menu. (Space)") || Input.GetKeyDown(KeyCode.Space))
-                    ButtonsActions.LoadLevel(0);
+                    ButtonsActions.LoadLevel(ButtonsActions.mainMenuName);
             }
             //gameOver = false;
             GUILayout.EndArea();
