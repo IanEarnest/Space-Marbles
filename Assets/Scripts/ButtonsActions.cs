@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace SpaceMarbles.V5
 {
@@ -24,10 +27,6 @@ namespace SpaceMarbles.V5
         public static GameObject GM;
 
         #region LoadLevel
-        public static void ReloadLevel()
-        {
-            LoadLevel();
-        }
         public static void LoadLevel(string levelName)
         {
             LoadLevel(nullNum, levelName);
@@ -35,6 +34,14 @@ namespace SpaceMarbles.V5
         public static void LoadLevel(int levelNum)
         {
             LoadLevel(levelNum, null);
+        }
+        public static void RestartLevel()
+        {
+            LoadLevel();
+        }
+        public static void LoadNextLevel()
+        {
+            LoadLevel(SceneManager.GetActiveScene().buildIndex+1);
         }
 
 
@@ -44,7 +51,9 @@ namespace SpaceMarbles.V5
             // ERROR: stackoverflow exception
             try
             {
+#pragma warning disable CS0219 // Variable is assigned but its value is never used
                 string loadedFrom = "";
+#pragma warning restore CS0219 // Variable is assigned but its value is never used
                 if (levelNum != nullNum) // cannot set int to null as default
                 {
                     SceneManager.LoadScene(levelNum);
@@ -70,11 +79,11 @@ namespace SpaceMarbles.V5
         }
 
 
-        public static void MainMenu()
+        public static void LoadLevelMainMenu()
         {
             LoadLevel(nullNum, mainMenuName);
         }
-        public static void MainMenuClassic()
+        public static void LoadLevelMainMenuClassic()
         {
             if (GM == null)
             {
@@ -174,11 +183,19 @@ namespace SpaceMarbles.V5
                 scrolled++;
             }
         }
-
-        public static void Quit()
+        public static void BuyLevel()
+        {
+            print("bought level");
+        }
+        public static void Exit()
         {
             Debug.Log("Quitting...");
-            Application.Quit();
+#if UNITY_EDITOR
+            EditorApplication.ExitPlaymode();
+#else
+            Application.Quit(); // original code to quit Unity player
+#endif
+
         }
     }
 }

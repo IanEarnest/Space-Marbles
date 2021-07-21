@@ -22,23 +22,23 @@ namespace SpaceMarbles.V5
         public Transform cameraWide; // Alternate camera.
 
         int frames = 0; // Count for each Update() frame ran.
-        float movespeed; // Move speed of gun.
+        //float movespeed; // Move speed of gun.
         Vector3 gunRotation; // Gun rotation towards mouse.
 
-        int shotPowerStart = 10; // How much power the shot starts with.
+        //int shotPowerStart = 10; // How much power the shot starts with.
         int shotPower = 10; // Force used to shoot Sphere.
-        int shotPowerPlus = 1; // How fast shot power increaces.
-        int shotPowerLimit = 100; // Max shot power.
+        //int shotPowerPlus = 1; // How fast shot power increaces.
+        //int shotPowerLimit = 100; // Max shot power.
 
         int spheres = 0; // Count for Sphere clones.
-        int maxSpheres; // Max spheres that can be created.
+        //int maxSpheres; // Max spheres that can be created.
 
         int targetSpheres = 0; // Count for target Spheres.
         float targetOrigin = 0; // Origin for target Sphere.
         string hitChecker = "Nothing"; // Hit check for target Spheres.
 
-        int scrollLimit = 2; // Max scroll limit.
-        int scrolled = 0; // Count for scroll.
+        //int scrollLimit = 2; // Max scroll limit.
+        //int scrolled = 0; // Count for scroll.
 
         // Interface
         string GUIPower; // Displays shot power.
@@ -48,7 +48,7 @@ namespace SpaceMarbles.V5
         Ray ray;
         RaycastHit hit;
 
-        bool gameOver = false;
+        //bool gameOver = false;
 
         //void Start()
         //{
@@ -353,7 +353,7 @@ namespace SpaceMarbles.V5
             // Game Over.
             if (GameObject.FindGameObjectsWithTag("Finish").Length == 0)
             {
-                gameOver = true;
+                //gameOver = true;
             }
         }
     }

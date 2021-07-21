@@ -6,6 +6,7 @@ TagManager:
   tags:
   - TargetSphere
   - Sphere
+  - CloseBtn
   layers:
   - Default
   - TransparentFX

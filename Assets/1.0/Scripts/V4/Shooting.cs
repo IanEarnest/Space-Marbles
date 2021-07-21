@@ -34,7 +34,9 @@ namespace SpaceMarbles.V4 {
 
         int targetSpheres = 0; // Count for target Spheres.
         float targetOrigin = 0; // Origin for target Sphere.
+#pragma warning disable CS0414 // Variable is assigned but its value is never used
         string hitChecker = "Nothing"; // Hit check for target Spheres.
+#pragma warning restore CS0414 // Variable is assigned but its value is never used
 
         int scrollLimit = 2; // Max scroll limit.
         int scrolled = 0; // Count for scroll.

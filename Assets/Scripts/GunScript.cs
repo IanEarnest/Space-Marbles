@@ -19,6 +19,8 @@ namespace SpaceMarbles.V5
         float cloneDestroyTimer = 5f;
         public static int activeSpheres = 0;
         public static int maxSpheres = 5;
+        public static int maxSpheresMaximum = 20;
+        public static int maxSpheresMinimum = 1;
         // Mouse Position
         Ray ray;
         RaycastHit hit;

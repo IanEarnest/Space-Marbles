@@ -36,7 +36,7 @@ public class Menu : MonoBehaviour {
 
 	float charSize;
 	string MainMenuRedoneName = "MainMenuRedone";
-	string MainMenuName = "MainMenu";
+	//string MainMenuName = "MainMenu";
 
 	void Start () {
 		//shootingMaxSpheres = shooting.maxSpheres;

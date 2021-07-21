@@ -39,7 +39,9 @@ public class Shooting : MonoBehaviour {
 
 	// Interface
 	string GUIPower; // Displays shot power.
+#pragma warning disable CS0219 // Variable is assigned but its value is never used
 	string GUITime; // //Displays frames played so far.
+#pragma warning disable CS0219 // Variable is assigned but its value is never used
 	string instructions =
 		"Controls" +
 		"\n Left click: Shoot" +
@@ -56,7 +58,7 @@ public class Shooting : MonoBehaviour {
  	RaycastHit hit;
 
 	bool gameOver = false;
-	string MainMenuRedoneName = "MainMenuRedone";
+	//string MainMenuRedoneName = "MainMenuRedone";
 	string MainMenuName = "MainMenu";
 	bool increaseShotPower = false;
 

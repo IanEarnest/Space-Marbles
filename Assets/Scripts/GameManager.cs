@@ -14,8 +14,10 @@ namespace SpaceMarbles.V5
         static GameObject canvas;
         GameGUI myGameGUI;
         GameObject myCapsule;
-        bool levelOver = false;
-        bool gameOver = false;
+        public static bool levelOver = false;
+#pragma warning disable CS0414 // Variable is assigned but its value is never used
+        public static bool gameOver = false;
+#pragma warning restore CS0414 // Variable is assigned but its value is never used
         public static GameObject cameraMain;
         public static GameObject cameraWide;
         public const string cameraTag = "MainCamera";
@@ -26,6 +28,9 @@ namespace SpaceMarbles.V5
         public static List<float> targetsStartsList = new List<float>(); // only checking the x coordinate
         public const string targetSphereTag = "TargetSphere";
         public static string currentLevel = "";
+        public static int coins = 0;
+        public static bool isMenuScene = true;
+        public static bool hasMenuLoadedBefore = false;
 
         public static GameManager Instance
         {
@@ -61,18 +66,22 @@ namespace SpaceMarbles.V5
         }
         void LevelLoad()
         {
+            IsMenuSceneCheck();
             currentLevel = SceneManager.GetActiveScene().name;
+            //print($"loaded...!{currentLevel}/ {SceneManager.GetActiveScene().name}");
+
             levelOver = false;
             gameOver = false;
-            //print("level reset!");
             myGameGUI = GameObject.Find("GameManager").GetComponent<GameGUI>();
-            if (currentLevel != ButtonsActions.mainMenuName)
+            if (!isMenuScene) //(currentLevel != ButtonsActions.mainMenuName)
             {
                 //myCapsule = GameObject.Find("Capsule");
-                FindCameras();
+                FindCameras(); // TODO: this not running? error in buttons on game zooming
                 ListTargetSpheres();
                 //print("scene = not main menu");
+                //print("level reset!");
             }
+            GunScript.shotPower = 0;
         }
         void Start()
         {
@@ -115,29 +124,38 @@ namespace SpaceMarbles.V5
             }
         }
 
-        // Graphical User Interface
-        void OnGUI()
+        public static int frame = 0;
+        public static int frameCheck = 50; // 50 calls per second normally
+        public static bool minimumFramesRun = false;
+        public static void FrameReset()
         {
-            if (levelOver)
+            if (frame > frameCheck)
             {
-                myGameGUI.GameOver();
-                //return;
+                minimumFramesRun = true;
+                IsMenuSceneCheck();
+                print("Min frames run");
+                frame = 0;
             }
-            //myGameGUI.LevelButtons();
-            //if (gameOver == true)
-            //{
-            //    myGameGUI.GameOver();
-            //}
+            frame++;
         }
 
         private void FixedUpdate()
         {
+            // when only level is over
+            if (levelOver && gameOver == false)
+            {
+                myGameGUI.LevelOver();
+            }
+            // when last level is over (level and game)
+            if (levelOver && gameOver)
+            {
+                myGameGUI.GameOver();
+            }
             if (currentLevel != SceneManager.GetActiveScene().name)
             {
                 LevelLoad();
-                return;
             }
-            if (!levelOver && currentLevel != ButtonsActions.mainMenuName)//SceneManager.GetActiveScene().name != ButtonsActions.mainMenuName)
+            if (!levelOver && !isMenuScene)//SceneManager.GetActiveScene().name != ButtonsActions.mainMenuName)
             {
                 if (targetsList.Count == 0)
                 {
@@ -153,6 +171,8 @@ namespace SpaceMarbles.V5
                 //    myCapsule.transform.Rotate(new Vector3(0, 0, capsuleRotateSpeed)); // Rotate capsule.
                 //}
             }
+
+            FrameReset();
         }
         private void CheckTargetSpheresMoved()
         {
@@ -169,7 +189,7 @@ namespace SpaceMarbles.V5
                     if (targetsHitList.Count == 0)
                     {
                         //print("No targets left to hit");
-                        //LevelOver();
+                        LevelOver();
                         return;
                     }
                     if (targetSphere.transform.position.x != targetsStartsList[targetsList.IndexOf(targetSphere)])
@@ -192,6 +212,7 @@ namespace SpaceMarbles.V5
             //if (GameObject.FindGameObjectsWithTag("Finish").Length == 0)
             //gameOver = true;
             levelOver = true;
+            print("LevelOver");
             if (SceneManager.GetActiveScene().name == ButtonsActions.lastLevel)
             {
                 gameOver = true;
@@ -204,6 +225,27 @@ namespace SpaceMarbles.V5
         //                Destroy(targetSphere.gameObject, 2f);
         //hitChecker = "Hit";
         //            }
+        public static void MaxSpheresPlus()
+        {
+            if (GunScript.maxSpheres < GunScript.maxSpheresMaximum)
+            {
+                GunScript.maxSpheres++;
+            }
+        }
+        public static void MaxSpheresMinus()
+        {
+            if (GunScript.maxSpheres > GunScript.maxSpheresMinimum)
+            {
+                GunScript.maxSpheres--;
+            }
+        }
 
+        public static void IsMenuSceneCheck()
+        {
+            if (minimumFramesRun)
+            {
+                isMenuScene = SceneManager.GetActiveScene().name == ButtonsActions.mainMenuName;
+            }
+        }
     }
 }

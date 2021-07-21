@@ -91,7 +91,7 @@ namespace SpaceMarbles.V5
             // Escape for quitting to main menu
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                ButtonsActions.MainMenu();
+                ButtonsActions.LoadLevelMainMenu();
             }
             #region LoadLevels
             if (Input.GetKeyDown(KeyCode.Alpha1))
