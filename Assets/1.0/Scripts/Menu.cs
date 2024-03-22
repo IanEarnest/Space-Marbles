@@ -120,8 +120,23 @@ public class Menu : MonoBehaviour {
 				quit.fontStyle = FontStyle.Bold;
 				if (Input.GetMouseButtonDown(0))
 				{
-					ButtonsActions.GM.SetActive(true); //GameObject.Find("GameManager").SetActive(true);
-					SceneManager.LoadScene(MainMenuRedoneName);
+					// If exporting only V1... quit, otherwise go to other main menu
+                    try
+                    {
+						ButtonsActions.GM.SetActive(true); //GameObject.Find("GameManager").SetActive(true);
+						SceneManager.LoadScene(MainMenuRedoneName);
+
+                    }
+                    catch (Exception e)
+                    {
+#if UNITY_EDITOR
+						UnityEditor.EditorApplication.isPlaying = false;
+#else
+						Application.Quit();
+#endif
+                        Console.WriteLine(e.Message);
+						//throw;
+                    }
 				}
 			}
 
