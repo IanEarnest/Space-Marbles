@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8017399914527612310}
   - component: {fileID: 8017399914527612305}
   - component: {fileID: 8017399914527612304}
+  - component: {fileID: 8932392825598195019}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -112,3 +113,15 @@ MonoBehaviour:
   clone: {fileID: 0}
   capsule: {fileID: 2815083820756608553, guid: 5c02778fc880866428bccc9608830567, type: 3}
   line: {fileID: 7372772999976327393, guid: 93b10fe2a58c4e84b932f67deeb627d1, type: 3}
+--- !u!114 &8932392825598195019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8017399914527612307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43f2fc070d1292049a13b3431f1ad40d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

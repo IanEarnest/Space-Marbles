@@ -11,6 +11,7 @@ namespace SpaceMarbles.V5
     }
     public class GameManager :MonoBehaviour
     {
+        public static bool isDebug;
         static GameObject canvas;
         GameGUI myGameGUI;
         GameObject myCapsule;
@@ -28,9 +29,14 @@ namespace SpaceMarbles.V5
         public static List<float> targetsStartsList = new List<float>(); // only checking the x coordinate
         public const string targetSphereTag = "TargetSphere";
         public static string currentLevel = "";
-        public static int coins = 0;
+        public static float coins = 0;
+        public static float coinsLevelCompleteBonus = 20;
         public static bool isMenuScene = true;
         public static bool hasMenuLoadedBefore = false;
+        public static bool bonusGiven = false;
+        public static bool showHints;
+        GameObject[] hintsGO;
+        string hintsTag = "Hint";
 
         public static GameManager Instance
         {
@@ -64,6 +70,10 @@ namespace SpaceMarbles.V5
             //}
             LevelLoad();
         }
+        private void OnLevelWasLoaded(int level)
+        {
+            LevelLoad(); // fixes problem with reloading level not calling Awake()
+        }
         void LevelLoad()
         {
             IsMenuSceneCheck();
@@ -72,12 +82,20 @@ namespace SpaceMarbles.V5
 
             levelOver = false;
             gameOver = false;
+            bonusGiven = false;
+
             myGameGUI = GameObject.Find("GameManager").GetComponent<GameGUI>();
             if (!isMenuScene) //(currentLevel != ButtonsActions.mainMenuName)
             {
                 //myCapsule = GameObject.Find("Capsule");
                 FindCameras(); // TODO: this not running? error in buttons on game zooming
                 ListTargetSpheres();
+                hintsGO = GameObject.FindGameObjectsWithTag(hintsTag);
+
+                foreach (GameObject hint in hintsGO)
+                {
+                    hint.SetActive(showHints);
+                }
                 //print("scene = not main menu");
                 //print("level reset!");
             }
@@ -133,7 +151,10 @@ namespace SpaceMarbles.V5
             {
                 minimumFramesRun = true;
                 IsMenuSceneCheck();
-                print("Min frames run");
+                if (isDebug)
+                {
+                    print("Min frames run");
+                }
                 frame = 0;
             }
             frame++;
@@ -142,9 +163,9 @@ namespace SpaceMarbles.V5
         private void FixedUpdate()
         {
             // when only level is over
-            if (levelOver && gameOver == false)
+            if (levelOver)// && gameOver == false)
             {
-                myGameGUI.LevelOver();
+                myGameGUI.LevelOver(); // only needs to run once...
             }
             // when last level is over (level and game)
             if (levelOver && gameOver)

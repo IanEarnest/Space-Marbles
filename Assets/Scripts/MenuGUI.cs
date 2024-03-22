@@ -44,9 +44,11 @@ namespace SpaceMarbles.V5
         Button Level9Btn;
         Button Level10Btn;
         //bool isMenuScene;
+        Button hintsBtn;
         List<GameObject> GOContainers = new List<GameObject>();
         List<Button> buttons = new List<Button>();
         List<Button> buttonsForPanels = new List<Button>();
+        List<Button> levelButtons = new List<Button>();
         GameObject[] closeButtons;
         Button lastSelectedButton;
         Color normalTextColor = Color.black;
@@ -62,24 +64,28 @@ namespace SpaceMarbles.V5
         }
         void FullMenuSetup()
         {
-            try
-            {
                 FindGameObjectsButtonsAndTexts();
                 MenuGUIAssignButtonsToLists(GOContainers, buttonsForPanels, buttons, closeButtons);
                 SetAllButtonColours(buttons);
                 DeactivatePanels(GOContainers);
                 SetupClicks(buttons);
+            try
+            {
 
                 if (!GameManager.hasMenuLoadedBefore)
                 {
                     MenuStartConfigs();
-                    print("menu setup finished");
+                    //print("menu setup finished");
                     GameManager.hasMenuLoadedBefore = true;
                 }
                 else
                 {
                     PlayBtn.Select(); // shortcut for debugging
                     SetAllButtonsFontColor(PlayBtn);
+                }
+                foreach (Button button in levelButtons)
+                {
+                    button.interactable = false;
                 }
             }
             catch (System.Exception e)
@@ -120,7 +126,18 @@ namespace SpaceMarbles.V5
             Level9Btn = GameObject.Find("Level9Btn").GetComponent<Button>();
             Level10Btn = GameObject.Find("Level10Btn").GetComponent<Button>();
 
+            hintsBtn = GameObject.Find("HintsBtn").GetComponent<Button>();
+
             PlayBtn.onClick.AddListener(() => ButtonsActions.LoadLevel1());
+            if (!Unlocks.hintsUnlockBought)
+            {
+                hintsBtn.onClick.AddListener(() => ButtonsActions.BuyHints(hintsBtn));
+            }
+            else
+            {
+                hintsBtn.onClick.AddListener(() => ButtonsActions.ShowHideHints(hintsBtn));
+                hintsBtn.GetComponentInChildren<TextMeshProUGUI>().text = GameManager.showHints.ToString();
+            }
         }
         void MenuGUIAssignButtonsToLists(List<GameObject> GOList, List<Button> goButtonsList, List<Button> allButtonsList, GameObject[] closeButtonsList)
         {
@@ -168,6 +185,19 @@ namespace SpaceMarbles.V5
             allButtonsList.Add(Level8Btn);
             allButtonsList.Add(Level9Btn);
             allButtonsList.Add(Level10Btn);
+
+            levelButtons.Clear();
+            levelButtons.Add(Level1Btn);
+            levelButtons.Add(Level2Btn);
+            levelButtons.Add(Level3Btn);
+            levelButtons.Add(Level4Btn);
+            levelButtons.Add(Level5Btn);
+            levelButtons.Add(Level6Btn);
+            levelButtons.Add(Level7Btn);
+            levelButtons.Add(Level8Btn);
+            levelButtons.Add(Level9Btn);
+            levelButtons.Add(Level10Btn);
+
         }
         public static void SetAllButtonColours(List<Button> buttonsList)
         {
@@ -459,6 +489,53 @@ namespace SpaceMarbles.V5
             //Title.text = $"{TitleText}";
             Coins.text = $"{CoinsText}{GameManager.coins}";
             MaxSpheresValue.text = $"{GunScript.maxSpheres}";
+            Unlocks.CheckUnlocks();
+            Unlocks.SetButtonsToLocks(levelButtons);
+            bool enoughToBuyLevel = GameManager.coins >= Unlocks.unlockCost;
+            bool enoughToBuyHints = GameManager.coins >= Unlocks.hintsUnlockCost;
+            if (!Unlocks.allLevelsBought)
+            {
+                BuyLevelBtn.interactable = enoughToBuyLevel;
+            }
+            else
+            {
+                BuyLevelBtn.interactable = false;
+            }
+            if (!Unlocks.hintsUnlockBought)
+            {
+                hintsBtn.interactable = enoughToBuyHints;
+            }
+
+            //// from 3rd element onwards of ... are locked levels
+            //for (int i = Unlocks.nextUnlock; i < Unlocks.levelLocksList.Count; i++)
+            //{
+
+            //    //Unlocks.levelLocksList[Unlocks.nextUnlock] // name of level thats locked... and onwards
+            //}
+            //if (Unlocks.nextUnlock)
+            //{
+
+            //}
+
+
+            //if (Unlocks.level2Lock)     Level2Btn.enabled = false;
+            //else                        Level2Btn.enabled = true;
+            //if (Unlocks.level3Lock)     Level3Btn.enabled = false;
+            //else                        Level3Btn.enabled = true;
+            //if (Unlocks.level4Lock)     Level4Btn.enabled = false;
+            //else                        Level4Btn.enabled = true;
+            //if (Unlocks.level5Lock)     Level5Btn.enabled = false;
+            //else                        Level5Btn.enabled = true;
+            //if (Unlocks.level6Lock)     Level6Btn.enabled = false;
+            //else                        Level6Btn.enabled = true;
+            //if (Unlocks.level7Lock)     Level7Btn.enabled = false;
+            //else                        Level7Btn.enabled = true;
+            //if (Unlocks.level8Lock)     Level8Btn.enabled = false;
+            //else                        Level8Btn.enabled = true;
+            //if (Unlocks.level9Lock)     Level9Btn.enabled = false;
+            //else                        Level9Btn.enabled = true;
+            //if (Unlocks.level10Lock)     Level10Btn.enabled = false;
+            //else                        Level10Btn.enabled = true;
             //Instructions.text = $"{LevelText}{GameManager.currentLevel}";
             //Options.text = $"{LevelText}{GameManager.currentLevel}";
             //About.text = $"{LevelText}{GameManager.currentLevel}";

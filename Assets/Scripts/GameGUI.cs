@@ -10,7 +10,7 @@ namespace SpaceMarbles.V5
     public class GameGUI :MonoBehaviour
     {
         //GunScript myGunScript;
-        string GUIPower = "";
+        //string GUIPower = "";
         TextMeshProUGUI Coins;
         TextMeshProUGUI Level;
         TextMeshProUGUI Power;
@@ -199,19 +199,16 @@ namespace SpaceMarbles.V5
         {
             // could do but affects performance
             GameManager.IsMenuSceneCheck();
-            if (!GameManager.isMenuScene)
+            if (!GameManager.isMenuScene && GameManager.minimumFramesRun)
             {
-                if (Coins == null && GameManager.minimumFramesRun)
+                if (Coins == null)
                 {
                     FullGameSetup();
                 }
                 else if (Coins != null)
                 {
-                    Coins.text = $"{CoinsText}{GameManager.coins}";
-                    Level.text = $"{LevelText}{GameManager.currentLevel}";
-                    Power.text = $"{PowerText}{GunScript.shotPower}";
-                    Spheres.text = $"{SpheresText}{GunScript.activeSpheres}/{GunScript.maxSpheres}";
-                    Targets.text = $"{TargetsText}{GameManager.targetsHitList.Count}/{GameManager.targetsList.Count}";
+                    UpdateUITexts();
+
                 }
                 if (!GameManager.levelOver)
                 {
@@ -232,6 +229,69 @@ namespace SpaceMarbles.V5
                 LevelOverNextLevelBtn.gameObject.SetActive(true);
                 LevelFinishText.text = $"{LevelFinishTextNormalLevel}";
                 LevelOverNextLevelBtn.Select();
+                // Unlock next level
+                //SceneManager.GetActiveScene().name
+                //ButtonsActions.levelNameList
+                // get index of list, if matches ...
+                if (!GameManager.bonusGiven)
+                {
+                    string currentLevel = SceneManager.GetActiveScene().name;
+                    string nextLevel = "";
+                    bool isNextLevelCorrret = false;
+                    foreach (string level in ButtonsActions.levelNameList)
+                    {
+                        if (isNextLevelCorrret)
+                        {
+                            nextLevel = level;
+                            isNextLevelCorrret = false;
+                        }
+                        if (level == SceneManager.GetActiveScene().name)
+                        {
+                            //nextLevel = level;
+                            isNextLevelCorrret = true;
+                            // next unlock default = level 2
+                            // index = 0
+                            // 2 = unlock level 3
+                            //string nameOfLock = Unlocks.levelLocksList[levelIndex+1];
+                            //Unlocks.levelLockNameAndBool[nameOfLock] = false;
+                            //print("lock: "+nameOfLock);
+
+                            //print(Unlocks.levelLockNameAndBool[nameOfUnlock]);
+                            //print(Unlocks.level2Lock);
+                            //if (Unlocks.levelLockNameAndBool.TryGetValue(nameOfUnlock, out bool unlockValue))
+                            //{
+                            //    unlockValue = false;
+                            //}
+                            //print(Unlocks.level2Lock);
+                            //print(Unlocks.levelLockNameAndBool[nameOfUnlock]);
+                            //Unlocks.levelLockNameAndBool[levelIndex][0];
+
+
+                                //level name list ... index of "level2" = 1
+                                // index of 1 Unlocks set false
+                        }
+                    }
+                    //Unlocks.level2Lock = false;
+
+                    int levelIndex = ButtonsActions.levelNameList.IndexOf(currentLevel);
+                    int nextUnlockNum = (levelIndex + 3);  // next unlock has to be above the level you want to unlock, e.g. currentLevel +1, nextLevel+2, nextnextLevel+3
+                    //print($"level: {currentLevel}, levelindex: {levelIndex}, nextUnlockNum{nextUnlockNum}");
+                    //print($"next unlock was: {Unlocks.nextUnlock}");
+                    if (nextUnlockNum > Unlocks.nextUnlock) // stops replaying level from moving next unlock back
+                    {
+                        Unlocks.nextUnlock = nextUnlockNum;
+                        GameManager.coins += GameManager.coinsLevelCompleteBonus;
+                        GameManager.bonusGiven = true;
+                    }
+                    else
+                    {
+                        print("level replayed, no coins gained");
+                    }
+                    //print($"next unlock is: {Unlocks.nextUnlock}");
+
+                    //print($"{currentLevel} level completed, {nextLevel} unlocked");
+
+                }
             }
         }
         public void GameOver()
@@ -247,6 +307,28 @@ namespace SpaceMarbles.V5
             }
         }
 
+        private void UpdateUITexts()
+        {
+            Coins.text = $"{CoinsText}{GameManager.coins}";
+            Level.text = $"{LevelText}{GameManager.currentLevel}";
+            Power.text = $"{PowerText}{GunScript.shotPower}";
+            Spheres.text = $"{SpheresText}{GunScript.activeSpheres}/{GunScript.maxSpheres}";
+            Targets.text = $"{TargetsText}{GameManager.targetsHitList.Count}/{GameManager.targetsList.Count}";
+
+            Unlocks.CheckUnlocks();
+            Unlocks.SetButtonsToLocks(levelButtons);
+            //Level2Btn.interactable = !Unlocks.level2Lock;
+            //print("lvl2: "+Unlocks.levelLockNameAndBool[nameof(Unlocks.level2Lock)]);
+            //Level2Btn.interactable = !Unlocks.levelLockNameAndBool[nameof(Unlocks.level2Lock)];
+            //Level3Btn.interactable = !Unlocks.levelLockNameAndBool[nameof(Unlocks.level3Lock)];
+            //Level4Btn.interactable = !Unlocks.level4Lock;
+            //Level5Btn.interactable = !Unlocks.level5Lock;
+            //Level6Btn.interactable = !Unlocks.level6Lock;
+            //Level7Btn.interactable = !Unlocks.level7Lock;
+            //Level8Btn.interactable = !Unlocks.level8Lock;
+            //Level9Btn.interactable = !Unlocks.level9Lock;
+            //Level10Btn.interactable = !Unlocks.level10Lock;
+        }
         #region oldUI
         //public void LevelButtons()
         //{

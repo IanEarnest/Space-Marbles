@@ -218,6 +218,44 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 16354242}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &69574391
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 348024501}
+    m_Modifications:
+    - target: {fileID: 1366144280521974145, guid: f2ecf80d8d5b38c4cad67d8c21dbf087, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1366144280521974145, guid: f2ecf80d8d5b38c4cad67d8c21dbf087, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -9.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 1366144280521974145, guid: f2ecf80d8d5b38c4cad67d8c21dbf087, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6.71
+      objectReference: {fileID: 0}
+    - target: {fileID: 1366144280521974145, guid: f2ecf80d8d5b38c4cad67d8c21dbf087, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1366144280521974145, guid: f2ecf80d8d5b38c4cad67d8c21dbf087, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1366144280521974145, guid: f2ecf80d8d5b38c4cad67d8c21dbf087, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f2ecf80d8d5b38c4cad67d8c21dbf087, type: 3}
+--- !u!4 &69574392 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1366144280521974145, guid: f2ecf80d8d5b38c4cad67d8c21dbf087, type: 3}
+  m_PrefabInstance: {fileID: 69574391}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &289263947
 GameObject:
   m_ObjectHideFlags: 0
@@ -443,6 +481,7 @@ Transform:
   - {fileID: 1962444990}
   - {fileID: 686280563}
   - {fileID: 1831369710}
+  - {fileID: 69574392}
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

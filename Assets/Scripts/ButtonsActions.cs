@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -21,10 +23,25 @@ namespace SpaceMarbles.V5
         public static string level8Name = "Level8Redone";
         public static string level9Name = "Level9Redone";
         public static string level10Name = "Level10Redone";
+        public static List<string> levelNameList = new List<string>();
         public static string lastLevel = "Level10Redone";
         public static string mainMenuName = "MainMenuRedone";
         public static string mainMenuClassicName = "MainMenu";
         public static GameObject GM;
+        private void Start()
+        {
+            levelNameList.Clear();
+            levelNameList.Add(level1Name);
+            levelNameList.Add(level2Name);
+            levelNameList.Add(level3Name);
+            levelNameList.Add(level4Name);
+            levelNameList.Add(level5Name);
+            levelNameList.Add(level6Name);
+            levelNameList.Add(level7Name);
+            levelNameList.Add(level8Name);
+            levelNameList.Add(level9Name);
+            levelNameList.Add(level10Name);
+        }
 
         #region LoadLevel
         public static void LoadLevel(string levelName)
@@ -185,8 +202,34 @@ namespace SpaceMarbles.V5
         }
         public static void BuyLevel()
         {
-            print("bought level");
+            //print("bought level");
+            if (GameManager.coins >= Unlocks.unlockCost)
+            {
+                GameManager.coins -= Unlocks.unlockCost;
+                Unlocks.nextUnlock++;
+            }
         }
+        public static void BuyHints(Button hintsBtn)
+        {
+            //print("hints bought");
+            if (GameManager.coins >= Unlocks.hintsUnlockCost)
+            {
+                GameManager.coins -= Unlocks.hintsUnlockCost;
+                Unlocks.hintsUnlockBought = true;
+                hintsBtn.onClick.RemoveAllListeners(); // need this?
+                hintsBtn.onClick.AddListener(() => ShowHideHints(hintsBtn));
+
+                GameManager.showHints = true;
+                hintsBtn.GetComponentInChildren<TextMeshProUGUI>().text = GameManager.showHints.ToString();
+            }
+        }
+        public static void ShowHideHints(Button hintsBtn)
+        {
+            //print("hints shown/hidden");
+            GameManager.showHints = !GameManager.showHints;
+            hintsBtn.GetComponentInChildren<TextMeshProUGUI>().text = GameManager.showHints.ToString();
+        }
+
         public static void Exit()
         {
             Debug.Log("Quitting...");

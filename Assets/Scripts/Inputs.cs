@@ -60,7 +60,11 @@ namespace SpaceMarbles.V5
                 //gameOver = !gameOver;
                 //ButtonsActions.LoadLevel1();
             }
-
+            // Space for GameOver debug...
+            if (Input.GetKeyDown(KeyCode.Keypad1))
+            {
+                GameManager.coins += 30;
+            }
 
             // On left click release, Launch Sphere clone from Gun to mouse position at power level. And reset shot power.
             if (Input.GetKeyUp(KeyCode.Mouse0))
