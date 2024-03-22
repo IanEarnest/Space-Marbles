@@ -1,0 +1,4 @@
+unityStreamingAssets=.unity3d**STREAMING_ASSETS**
+
+
+android.enableR8=**MINIFY_WITH_R_EIGHT**
