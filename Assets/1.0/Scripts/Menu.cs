@@ -11,6 +11,7 @@ public class Menu : MonoBehaviour {
 	public TextMesh play;
 	public TextMesh levelSelect;
 	public TextMesh options;
+	public TextMesh about;
 	public TextMesh quit;
 
 	public TextMesh maxSpheres;
@@ -22,6 +23,10 @@ public class Menu : MonoBehaviour {
 	public TextMesh moveSpeedPlus;
 	public TextMesh moveSpeedMinus;
 	public TextMesh optionsClose;
+	public TextMesh aboutInfo;
+	public TextMesh aboutClose;
+
+
 
 	public TextMesh level1;
 	public TextMesh level2;
@@ -85,6 +90,8 @@ public class Menu : MonoBehaviour {
 					level4.GetComponent<Renderer>().enabled = !level4.GetComponent<Renderer>().enabled;
 					levelClose.GetComponent<Renderer>().enabled = !levelClose.GetComponent<Renderer>().enabled;
 
+					aboutInfo.GetComponent<Renderer>().enabled = false;
+					aboutClose.GetComponent<Renderer>().enabled = false;
 					maxSpheres.GetComponent<Renderer>().enabled = false;
 					maxSpheresValue.GetComponent<Renderer>().enabled = false;
 					maxSpheresPlus.GetComponent<Renderer>().enabled = false;
@@ -94,6 +101,7 @@ public class Menu : MonoBehaviour {
 					moveSpeedPlus.GetComponent<Renderer>().enabled = false;
 					moveSpeedMinus.GetComponent<Renderer>().enabled = false;
 					optionsClose.GetComponent<Renderer>().enabled = false;
+					aboutClose.GetComponent<Renderer>().enabled = false;
 				}
 			}
 			if(hit.transform.name == "Options"){
@@ -109,6 +117,8 @@ public class Menu : MonoBehaviour {
 					moveSpeedMinus.GetComponent<Renderer>().enabled = !moveSpeedMinus.GetComponent<Renderer>().enabled;
 					optionsClose.GetComponent<Renderer>().enabled = !optionsClose.GetComponent<Renderer>().enabled;
 
+					aboutInfo.GetComponent<Renderer>().enabled = false;
+					aboutClose.GetComponent<Renderer>().enabled = false;
 					level1.GetComponent<Renderer>().enabled = false;
 					level2.GetComponent<Renderer>().enabled = false;
 					level3.GetComponent<Renderer>().enabled = false;
@@ -116,7 +126,32 @@ public class Menu : MonoBehaviour {
 					levelClose.GetComponent<Renderer>().enabled = false;
 				}
 			}
-			if(hit.transform.name == "Quit"){
+			if (hit.transform.name == "About")
+			{
+				about.fontStyle = FontStyle.Bold;
+				if (Input.GetMouseButtonDown(0))
+				{
+					aboutInfo.GetComponent<Renderer>().enabled = !aboutInfo.GetComponent<Renderer>().enabled;
+					aboutClose.GetComponent<Renderer>().enabled = !aboutClose.GetComponent<Renderer>().enabled;
+
+					maxSpheres.GetComponent<Renderer>().enabled = false;
+					maxSpheresValue.GetComponent<Renderer>().enabled = false;
+					maxSpheresPlus.GetComponent<Renderer>().enabled = false;
+					maxSpheresMinus.GetComponent<Renderer>().enabled = false;
+					moveSpeed.GetComponent<Renderer>().enabled = false;
+					moveSpeedValue.GetComponent<Renderer>().enabled = false;
+					moveSpeedPlus.GetComponent<Renderer>().enabled = false;
+					moveSpeedMinus.GetComponent<Renderer>().enabled = false;
+					optionsClose.GetComponent<Renderer>().enabled = false;
+
+					level1.GetComponent<Renderer>().enabled = false;
+					level2.GetComponent<Renderer>().enabled = false;
+					level3.GetComponent<Renderer>().enabled = false;
+					level4.GetComponent<Renderer>().enabled = false;
+					levelClose.GetComponent<Renderer>().enabled = false;
+				}
+			}
+			if (hit.transform.name == "Quit"){
 				quit.fontStyle = FontStyle.Bold;
 				if (Input.GetMouseButtonDown(0))
 				{
@@ -185,7 +220,15 @@ public class Menu : MonoBehaviour {
 					optionsClose.GetComponent<Renderer>().enabled = !optionsClose.GetComponent<Renderer>().enabled;
 				}
 			}
-
+			if (hit.transform.name == "About Close")
+			{
+				aboutClose.fontStyle = FontStyle.Bold;
+				if (Input.GetMouseButtonDown(0))
+				{
+					aboutInfo.GetComponent<Renderer>().enabled = !aboutInfo.GetComponent<Renderer>().enabled;
+					aboutClose.GetComponent<Renderer>().enabled = !aboutClose.GetComponent<Renderer>().enabled;
+				}
+			}
 			List<TextMesh> levelTextMeshes = new List<TextMesh>();
 			levelTextMeshes.Add(level1);
 			levelTextMeshes.Add(level2);
@@ -239,6 +282,7 @@ public class Menu : MonoBehaviour {
 			play.fontStyle = FontStyle.Normal;
 			levelSelect.fontStyle = FontStyle.Normal;
 			options.fontStyle = FontStyle.Normal;
+			about.fontStyle = FontStyle.Normal;
 			quit.fontStyle = FontStyle.Normal;
 
 			maxSpheres.fontStyle = FontStyle.Normal;
@@ -248,6 +292,7 @@ public class Menu : MonoBehaviour {
 			moveSpeedPlus.fontStyle = FontStyle.Normal;
 			moveSpeedMinus.fontStyle = FontStyle.Normal;
 			optionsClose.fontStyle = FontStyle.Normal;
+			aboutClose.fontStyle = FontStyle.Normal;
 
 			level1.fontStyle = FontStyle.Normal;
 			level2.fontStyle = FontStyle.Normal;
